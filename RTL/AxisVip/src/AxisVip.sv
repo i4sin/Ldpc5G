@@ -8,5 +8,6 @@ package AXIS_VIP;
     `include "AxisTransaction.svh"
     
     `include "AxisMasterDriver.svh"
+    `include "AxisMasterSequencer.svh"
     `include "AxisMonitor.svh"
 endpackage
