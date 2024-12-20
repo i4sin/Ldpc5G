@@ -4,6 +4,7 @@ package AXIS_VIP;
 
     `include "AxisMasterItem.svh"
     `include "AxisMasterPacket.svh"
+    `include "AxisMasterPacketSeq.svh"
     `include "AxisTransaction.svh"
     
     `include "AxisMasterDriver.svh"
