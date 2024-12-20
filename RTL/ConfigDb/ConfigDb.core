@@ -1,0 +1,20 @@
+CAPI=2: 2
+
+name: Yasin:RTL:ConfigDb
+description: Uvm ConfigDb Wrapper
+
+filesets:
+  tb_files:
+    logical_name: tb_lib
+    files:
+      - src/ConfigDb.sv
+      - src/ConfigDb.svh: {is_include_file: true}
+
+    file_type: systemVerilogSource
+    # depend:
+      # - Naad:TestUtils:Vunit
+
+targets:
+  default: &default
+    filesets:
+      - rtl_files
