@@ -17,7 +17,7 @@ class AxisMonitor #(
     endfunction
 
     virtual function void build_phase(uvm_phase phase);
-        ConfigDb#(vif)::get(this, "", "vif", vif);
+        ConfigDb#(Vif)::get(this, "", "vif", vif);
     endfunction
 
     virtual task run_phase(uvm_phase phase);
