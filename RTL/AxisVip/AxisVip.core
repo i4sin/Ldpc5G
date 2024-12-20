@@ -17,7 +17,7 @@ filesets:
       - test/AxisMasterItem.svh: {is_include_file: true}
       - test/AxisMasterPacket.svh: {is_include_file: true}
       - test/AxisMasterPacketSeq.svh: {is_include_file: true}
-      - test/AxisMasterSequencer.svh: {is_include_file: true}
+      - test/AxisMasterSeqr.svh: {is_include_file: true}
       - test/AxisMonitor.svh: {is_include_file: true}
       - test/AxisTransaction.svh: {is_include_file: true}
 
