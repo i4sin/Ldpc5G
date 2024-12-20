@@ -1,0 +1,29 @@
+CAPI=2: 2
+
+name: Yasin:RTL:AxisVip
+description: Axis Verification IPCore
+
+filesets:
+  rtl_files:
+    files:
+      - src/AxisVip.sv
+    file_type: systemVerilogSource
+
+  tb_files:
+    logical_name: tb_lib
+    files:
+      - test/AxisVip_tb.sv
+      - test/AxisMasterDriver.svh: {is_include_file: true}
+      - test/AxisMasterItem.svh: {is_include_file: true}
+      - test/AxisMasterPacket.svh: {is_include_file: true}
+      - test/AxisMonitor.svh: {is_include_file: true}
+      - test/AxisTransaction.svh: {is_include_file: true}
+
+    file_type: systemVerilogSource
+    # depend:
+      # - Naad:TestUtils:Vunit
+
+targets:
+  default: &default
+    filesets:
+      - rtl_files
