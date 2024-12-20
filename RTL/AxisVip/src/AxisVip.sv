@@ -1,5 +1,5 @@
 package AXIS_VIP;
-    import uvm::*;
+    import uvm_pkg::*;
     `include "uvm_macros.svh"
 
     `include "AxisMasterItem.svh"
