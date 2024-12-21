@@ -12,7 +12,7 @@ filesets:
   tb_files:
     logical_name: tb_lib
     files:
-      - test/AxisVip_tb.sv
+      - test/AxisVip.sv
       - test/AxisMasterAgent.svh: {is_include_file: true}
       - test/AxisMasterDriver.svh: {is_include_file: true}
       - test/AxisMasterItem.svh: {is_include_file: true}
