@@ -1,0 +1,17 @@
+CAPI=2: 2
+
+name: Yasin:TestInterfaces:ClockIf
+description: Clock Interface
+
+filesets:
+  rtl_files:
+    files:
+      - src/ClockIf.sv
+    file_type: systemVerilogSource
+    # depend:
+      # - Naad:TestUtils:Vunit
+
+targets:
+  default: &default
+    filesets:
+      - rtl_files
