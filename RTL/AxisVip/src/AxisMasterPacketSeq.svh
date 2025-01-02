@@ -1,7 +1,7 @@
 class AxisMasterPacketSeq #(
     parameter DATA_WIDTH
 ) extends uvm_sequence #(AxisMasterItem#(DATA_WIDTH));
-    `uvm_object_utils(AxisMasterPacketSeq#(DATA_WIDTH))
+    `uvm_object_param_utils(AxisMasterPacketSeq#(DATA_WIDTH))
 
     typedef AxisMasterPacket#(DATA_WIDTH) Packet;
 
@@ -17,7 +17,7 @@ class AxisMasterPacketSeq #(
     endtask
 
     local function void get_packets_count();
-        ConfigDb#(int)::get(this, "", "packets_count", packets_count);
+        ConfigDb#(int)::get(m_sequencer, "", "packets_count", packets_count);
     endfunction
 
     local function void send_packet();

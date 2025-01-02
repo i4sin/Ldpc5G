@@ -1,7 +1,7 @@
 class AxisTransaction #(
     parameter DATA_WIDTH
 ) extends uvm_transaction;
-    `uvm_object_utils(AxisTransaction#(DATA_WIDTH))
+    `uvm_object_param_utils(AxisTransaction#(DATA_WIDTH))
 
     logic [DATA_WIDTH-1:0] tdata;
     logic [DATA_WIDTH/8-1:0] tkeep;

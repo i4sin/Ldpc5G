@@ -1,7 +1,7 @@
 class AxisMasterAgent #(
     parameter DATA_WIDTH
 ) extends uvm_agent;
-    `uvm_component_utils(AxisMasterAgent#(DATA_WIDTH))
+    `uvm_component_param_utils(AxisMasterAgent#(DATA_WIDTH))
 
     typedef uvm_analysis_port#(AxisTransaction#(DATA_WIDTH)) AnalysisPort;
     typedef virtual AxisIf#(DATA_WIDTH) Vif;

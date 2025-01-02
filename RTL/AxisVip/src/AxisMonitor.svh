@@ -1,11 +1,11 @@
 class AxisMonitor #(
     parameter DATA_WIDTH
 ) extends uvm_monitor;
-    `uvm_component_utils(AxisMonitor#(DATA_WIDTH))
+    `uvm_component_param_utils(AxisMonitor#(DATA_WIDTH))
 
     typedef uvm_analysis_port#(AxisTransaction#(DATA_WIDTH)) AnalysisPort;
     typedef virtual AxisIf#(DATA_WIDTH) Vif;
-    typedef AxisMasterTransaction#(DATA_WIDTH) CapturedTransaction;
+    typedef AxisMasterTransaction#(DATA_WIDTH) Transaction;
 
     AnalysisPort analysis_port;
 
@@ -28,10 +28,10 @@ class AxisMonitor #(
     endtask
 
     virtual function void capture_transaction();
-        CapturedTransaction captured_transaction = CapturedTransaction::type_id::create("captured_transaction", this);
-        captured_transaction.tdata = vif.tdata;
-        captured_transaction.tkeep = vif.tkeep;
-        captured_transaction.tlast = vif.tlast;
-        analysis_port.write(captured_transaction);
+        Transaction transaction = Transaction::type_id::create("transaction", this);
+        transaction.tdata = vif.tdata;
+        transaction.tkeep = vif.tkeep;
+        transaction.tlast = vif.tlast;
+        analysis_port.write(transaction);
     endfunction
 endclass

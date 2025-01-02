@@ -1,7 +1,7 @@
 class AxisMasterPacket #(
     parameter DATA_WIDTH
 ) extends uvm_sequence #(AxisMasterItem#(DATA_WIDTH));
-    `uvm_object_utils(AxisMasterPacket#(DATA_WIDTH))
+    `uvm_object_param_utils(AxisMasterPacket#(DATA_WIDTH))
 
     typedef AxisMasterItem#(DATA_WIDTH) Item;
 
@@ -18,8 +18,9 @@ class AxisMasterPacket #(
         for (int i = 0; i < packet_length; i++) begin
             Item item = Item::type_id::create("item", m_sequencer);
             start_item(item);
-            assert(item.randomize());
-            if (i == packet_length - 1) item.tlast = 1;
+            assert(item.randomize()) with {
+                item.tlast = (i == packet_length - 1);
+            };
             finish_item(item);
         end
     endtask

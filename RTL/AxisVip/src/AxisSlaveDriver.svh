@@ -19,7 +19,7 @@ class AxisSlaveDriver extends uvm_driver #(AxisSlaveItem);
             Item item;
             seq_item_port.get_next_item(item);
             wait_for_tvalild();
-            wait_before_drive(item.delay);
+            delay_transfer(item.delay);
             drive();
             seq_item_port.item_done();
         end
@@ -29,7 +29,7 @@ class AxisSlaveDriver extends uvm_driver #(AxisSlaveItem);
         while (!vif.tvalid) @(posedge vif.aclk);
     endtask
 
-    local task wait_before_drive(int delay);
+    local task delay_transfer(int delay);
         repeat (delay) @(posedge vif.aclk);
     endtask
 

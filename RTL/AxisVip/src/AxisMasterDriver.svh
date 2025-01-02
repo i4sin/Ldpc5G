@@ -1,7 +1,7 @@
 class AxisMasterDriver #(
     parameter DATA_WIDTH
 ) extends uvm_driver #(AxisMasterItem#(DATA_WIDTH));
-    `uvm_component_utils(AxisMasterDriver#(DATA_WIDTH))
+    `uvm_component_param_utils(AxisMasterDriver#(DATA_WIDTH))
 
     typedef AxisMasterItem#(DATA_WIDTH) Item;
     typedef virtual AxisIf#(DATA_WIDTH) Vif;
@@ -20,13 +20,13 @@ class AxisMasterDriver #(
         forever begin
             Item item;
             seq_item_port.get_next_item(item);
-            wait_before_drive(item.delay);
+            delay_transfer(item.delay);
             drive(item);
             seq_item_port.item_done();
         end
     endtask
 
-    local task wait_before_drive(int delay);
+    local task delay_transfer(int delay);
         repeat (delay) @(posedge vif.aclk);
     endtask
 
