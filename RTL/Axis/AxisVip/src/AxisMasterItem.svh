@@ -15,4 +15,12 @@ class AxisMasterItem #(
     function new(string name = "AxisMasterItem");
         super.new(name);
     endfunction
+
+    virtual function void do_print(uvm_printer printer);
+        super.do_print(printer);
+        printer.print_field_int("delay", delay, $bits(delay), UVM_DEC);
+        printer.print_field("tdata", tdata, $bits(tdata), UVM_HEX);
+        printer.print_field("tkeep", tkeep, $bits(tkeep), UVM_HEX);
+        printer.print_field("tlast", tlast, $bits(tlast), UVM_HEX);
+    endfunction
 endclass

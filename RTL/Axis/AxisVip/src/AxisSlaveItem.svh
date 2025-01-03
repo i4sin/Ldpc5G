@@ -9,4 +9,9 @@ class AxisSlaveItem extends uvm_sequence_item;
     function new(string name = "AxisSlaveItem");
         super.new(name);
     endfunction
+
+    virtual function void do_print(uvm_printer printer);
+        super.do_print(printer);
+        printer.print_field_int("delay", delay, $bits(delay), UVM_DEC);
+    endfunction
 endclass

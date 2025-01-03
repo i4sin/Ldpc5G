@@ -22,4 +22,11 @@ class AxisTransaction #(
         result = result & item.tlast == tlast;
         return result;
     endfunction
+
+    virtual function void do_print(uvm_printer printer);
+        super.do_print(printer);
+        printer.print_field("tdata", tdata, $bits(tdata), UVM_HEX);
+        printer.print_field("tkeep", tkeep, $bits(tkeep), UVM_HEX);
+        printer.print_field("tlast", tlast, $bits(tlast), UVM_HEX);
+    endfunction
 endclass
