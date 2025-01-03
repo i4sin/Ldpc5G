@@ -1,11 +1,12 @@
 class Watchdog extends uvm_component;
     `uvm_component_utils(Watchdog)
 
-    local virtual ClockIf Vif;
-    local int elapsed_clocks = 0;
-    local long int watchdog_clocks;
+    typedef virtual ClockIf Vif;
 
     Vif vif;
+
+    local int elapsed_clocks = 0;
+    local long int watchdog_clocks;
 
     function new(string name, uvm_component parent);
         super.new(name, parent);

@@ -9,17 +9,19 @@ filesets:
       - src/AxisConnector.sv
     file_type: systemVerilogSource
     depend:
-      - Naad:TestInterfaces:AxisIf
+      - Yasin:TestInterfaces:AxisIf
 
-  # tb_files:
-  #   logical_name: tb_lib
-  #   files:
-  #     - test/AxisConnector_tb.sv
-  #     # - test/Word.sv: {is_include_file: true}
+  tb_files:
+    logical_name: tb_lib
+    files:
+      - test/TestCase/TestCases.sv
+      - test/TestCase/Test.sv: {is_include_file: true}
+      - test/Vunit_tb.sv
 
-    # file_type: systemVerilogSource
-    # depend:
-    #   - Naad:TestUtils:Vunit
+    file_type: systemVerilogSource
+    depend:
+      - Yasin:TestUtils:Vunit
+      - Yasin:RTL:AxisConnectorTest
 
 targets:
   default: &default

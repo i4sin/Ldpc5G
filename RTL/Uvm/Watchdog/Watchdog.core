@@ -1,7 +1,7 @@
 CAPI=2: 2
 
-name: Yasin:RTL:Watchdog
-description: Reset Verification IPCore
+name: Yasin:Uvm:Watchdog
+description: Uvm's Watchdog IPCore
 
 filesets:
   tb_files:
@@ -12,7 +12,7 @@ filesets:
 
     file_type: systemVerilogSource
     depend:
-      - Naad:TestInterfaces:ResetIf
+      - Yasin:TestInterfaces:ClockIf
 
 targets:
   default: &default

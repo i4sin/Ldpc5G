@@ -12,7 +12,7 @@ filesets:
 
     file_type: systemVerilogSource
     # depend:
-      # - Naad:TestUtils:Vunit
+      # - Yasin:TestUtils:Vunit
 
 targets:
   default: &default

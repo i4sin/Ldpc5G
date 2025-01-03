@@ -1,0 +1,19 @@
+CAPI=2: 2
+
+name: Yasin:Uvm:BaseTest
+description: Uvm's BaseTest
+
+filesets:
+  tb_files:
+    logical_name: tb_lib
+    files:
+      - test/BaseTest.sv
+
+    file_type: systemVerilogSource
+    depend:
+      - Yasin:Uvm:Watchdog
+
+targets:
+  default: &default
+    filesets:
+      - tb_files

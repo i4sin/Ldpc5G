@@ -21,7 +21,7 @@ filesets:
 
     file_type: systemVerilogSource
     depend:
-      - Naad:TestInterfaces:ResetIf
+      - Yasin:TestInterfaces:ResetIf
 
 targets:
   default: &default
