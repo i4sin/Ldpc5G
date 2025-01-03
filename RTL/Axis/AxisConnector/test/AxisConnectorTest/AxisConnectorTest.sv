@@ -1,6 +1,6 @@
 package AXIS_CONNECTOR_TEST;
-    import vunit_pkg::*;
-    `include "vunit_defines.svh"
+    import uvm_pkg::*;
+    `include “uvm_macros.svh”
 
     `include "Env.svh"
 endpackage

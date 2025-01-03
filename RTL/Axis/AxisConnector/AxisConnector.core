@@ -20,8 +20,8 @@ filesets:
 
     file_type: systemVerilogSource
     depend:
-      - Yasin:TestUtils:Vunit
       - Yasin:RTL:AxisConnectorTest
+      - Yasin:TestUtils:Vunit
 
 targets:
   default: &default

@@ -1,7 +1,9 @@
 class Test #(
     parameter DATA_WIDTH
 ) extends BaseTest;
-    typedef uvm_component_registry#(Test#(DATA_WIDTH),$sformatf("Test#(%0d)",DATA_WIDTH)) TestCase;
+    `uvm_component_param_utils(Test#(DATA_WIDTH))
+
+    typedef uvm_component_registry#(Test#(DATA_WIDTH), $sformatf("Test#(%0d)",DATA_WIDTH)) TestCase;
 
     typedef Env #(DATA_WIDTH) Env;
     typedef AxisMasterPacketSeq#(DATA_WIDTH) MasterSeq;

@@ -1,7 +1,7 @@
 class Scoreboard #(
     parameter DATA_WIDTH
 ) extends uvm_scoreboard;
-    `uvm_component_utils(Scoreboard#(DATA_WIDTH))
+    `uvm_component_param_utils(Scoreboard#(DATA_WIDTH))
 
     typedef AxisTransaction#(DATA_WIDTH) Transaction;
     typedef uvm_tlm_analysis_fifo #(Transaction) AnalysisFifo;

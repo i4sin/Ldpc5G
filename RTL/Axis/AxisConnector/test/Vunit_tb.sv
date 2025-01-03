@@ -1,5 +1,5 @@
 `timescale 1ns/1ps
-`PERIOD 20ns/1ps
+`define PERIOD 20ns/1ps
 
 module AxisConnector_tb (
     string runner_cfg = "";
@@ -19,13 +19,15 @@ module AxisConnectorTest();
     
     import vunit_pkg::*;
     `include "vunit_defines.svh"
+    import uvm_pkg::*;
+    `include “uvm_macros.svh”
 
     const int PACKETS_COUNT = 512;
     const long int WATCHDOG_CLOCKS = 5000000;
 
     bit clk = 0;
     bit resetn = 0;
-    initial forever #20 clk = ~clk;
+    initial forever #(`PERIOD / 2) clk = ~clk;
     
     AxisIf #(
         .DATA_WIDTH(DATA_WIDTH)
