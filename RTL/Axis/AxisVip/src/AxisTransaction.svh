@@ -3,7 +3,7 @@ class AxisTransaction #(
 ) extends uvm_transaction;
     `uvm_object_param_utils(AxisTransaction#(DATA_WIDTH))
 
-    typedef AxisMasterItem#(DATA_WIDTH) Item;
+    typedef AxisTransaction#(DATA_WIDTH) Transaction;
 
     logic [DATA_WIDTH-1:0] tdata;
     logic [DATA_WIDTH/8-1:0] tkeep;
@@ -15,11 +15,11 @@ class AxisTransaction #(
 
     virtual function bit do_compare(uvm_object rhs, uvm_comparer comparer);
         bit result;
-        Item item;
-        assert ($cast(item, rhs));
-        result = super.do_compare(rhs, comparer) & tdata == item.tdata;
-        result = result & item.tkeep == tkeep;
-        result = result & item.tlast == tlast;
+        Transaction transaction;
+        assert ($cast(transaction, rhs));
+        result = super.do_compare(rhs, comparer) & tdata == transaction.tdata;
+        result = result & transaction.tkeep == tkeep;
+        result = result & transaction.tlast == tlast;
         return result;
     endfunction
 
