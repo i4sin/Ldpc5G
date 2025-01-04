@@ -12,8 +12,8 @@ class BaseTest extends uvm_test;
     endfunction
 
     virtual task check_phase(uvm_phase phase);
-        int errors_count = server.get_severity_count(UVM_ERROR);
         uvm_report_server server = uvm_report_server::get_server();
+        int errors_count = server.get_severity_count(UVM_ERROR);
         `uvm_fatal("TEST", $sformatf("UVM TEST FAILED! errors_count: %0d", errors_count))
     endtask
 endclass
