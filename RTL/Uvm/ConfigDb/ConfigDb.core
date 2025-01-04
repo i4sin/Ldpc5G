@@ -1,6 +1,6 @@
 CAPI=2: 2
 
-name: Yasin:RTL:ConfigDb
+name: Yasin:Uvm:ConfigDb
 description: Uvm ConfigDb Wrapper
 
 filesets:

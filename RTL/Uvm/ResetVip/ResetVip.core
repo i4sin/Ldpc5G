@@ -1,6 +1,6 @@
 CAPI=2: 2
 
-name: Yasin:RTL:ResetVip
+name: Yasin:Uvm:ResetVip
 description: Reset Verification IPCore
 
 filesets:
