@@ -3,4 +3,5 @@ package AXIS_CONNECTOR_TEST;
     `include “uvm_macros.svh”
 
     `include "Env.svh"
+    `include "Scoreboard.svh"
 endpackage
