@@ -12,4 +12,12 @@ interface AxisIf #(
 
     modport master(input aclk, aresetn, output tvalid, tdata, tkeep, tlast, input tready);
     modport slave(input aclk, aresetn, input tvalid, tdata, tkeep, tlast, output tready);
+
+    function bit transfer();
+        return tvalid & tready;
+    endfunction
+
+    function bit last_transfer();
+        return tvalid & tlast & tready;
+    endfunction
 endinterface

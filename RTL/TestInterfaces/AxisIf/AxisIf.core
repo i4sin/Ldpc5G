@@ -9,8 +9,6 @@ filesets:
     files:
       - src/AxisIf.sv
     file_type: systemVerilogSource
-    # depend:
-      # - Yasin:TestUtils:Vunit
 
 targets:
   default: &default
