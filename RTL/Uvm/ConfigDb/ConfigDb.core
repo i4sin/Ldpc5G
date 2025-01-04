@@ -17,4 +17,4 @@ filesets:
 targets:
   default: &default
     filesets:
-      - rtl_files
+      - tb_files
