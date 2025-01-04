@@ -5,7 +5,7 @@ class AxisMonitor #(
 
     typedef uvm_analysis_port#(AxisTransaction#(DATA_WIDTH)) AnalysisPort;
     typedef virtual AxisIf#(DATA_WIDTH) Vif;
-    typedef AxisMasterTransaction#(DATA_WIDTH) Transaction;
+    typedef AxisTransaction#(DATA_WIDTH) Transaction;
 
     AnalysisPort analysis_port;
 

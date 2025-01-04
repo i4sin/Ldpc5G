@@ -7,23 +7,24 @@ filesets:
   tb_files:
     logical_name: tb_lib
     files:
-      - test/AxisVip.sv
-      - test/AxisMasterAgent.svh: {is_include_file: true}
-      - test/AxisMasterDriver.svh: {is_include_file: true}
-      - test/AxisMasterItem.svh: {is_include_file: true}
-      - test/AxisMasterPacket.svh: {is_include_file: true}
-      - test/AxisMasterPacketSeq.svh: {is_include_file: true}
-      - test/AxisMasterSeqr.svh: {is_include_file: true}
-      - test/AxisMonitor.svh: {is_include_file: true}
-      - test/AxisSlaveAgent.svh: {is_include_file: true}
-      - test/AxisSlaveDriver.svh: {is_include_file: true}
-      - test/AxisSlaveItem.svh: {is_include_file: true}
-      - test/AxisSlaveSeq.svh: {is_include_file: true}
-      - test/AxisSlaveSeqr.svh: {is_include_file: true}
-      - test/AxisTransaction.svh: {is_include_file: true}
+      - src/AxisVip.sv
+      - src/AxisMasterAgent.svh: {is_include_file: true}
+      - src/AxisMasterDriver.svh: {is_include_file: true}
+      - src/AxisMasterItem.svh: {is_include_file: true}
+      - src/AxisMasterPacket.svh: {is_include_file: true}
+      - src/AxisMasterPacketSeq.svh: {is_include_file: true}
+      - src/AxisMasterSeqr.svh: {is_include_file: true}
+      - src/AxisMonitor.svh: {is_include_file: true}
+      - src/AxisSlaveAgent.svh: {is_include_file: true}
+      - src/AxisSlaveDriver.svh: {is_include_file: true}
+      - src/AxisSlaveItem.svh: {is_include_file: true}
+      - src/AxisSlaveSeq.svh: {is_include_file: true}
+      - src/AxisSlaveSeqr.svh: {is_include_file: true}
+      - src/AxisTransaction.svh: {is_include_file: true}
     file_type: systemVerilogSource
     depend:
       - Yasin:TestInterfaces:AxisIf
+      - Yasin:Uvm:ConfigDb
 
 targets:
   default: &default

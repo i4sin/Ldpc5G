@@ -7,10 +7,12 @@ filesets:
   tb_files:
     logical_name: tb_lib
     files:
-      - test/BaseTest.sv
+      - src/BaseTest.sv
+      - src/BaseTest.svh: {is_include_file: true}
 
     file_type: systemVerilogSource
     depend:
+      - Yasin:Uvm:ConfigDb
       - Yasin:Uvm:Watchdog
 
 targets:

@@ -18,9 +18,9 @@ class AxisMasterPacket #(
         for (int i = 0; i < packet_length; i++) begin
             Item item = Item::type_id::create("item", m_sequencer);
             start_item(item);
-            assert(item.randomize()) with {
-                item.tlast = (i == packet_length - 1);
-            };
+            assert(item.randomize() with {
+                tlast == (i == packet_length - 1);
+            });
             finish_item(item);
         end
     endtask

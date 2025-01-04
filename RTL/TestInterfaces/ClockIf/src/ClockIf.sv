@@ -1,4 +1,3 @@
-interface ClockIf (
-    input clk
-);
+interface ClockIf;
+    logic clk;
 endinterface

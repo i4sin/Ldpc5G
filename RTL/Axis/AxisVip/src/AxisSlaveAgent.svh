@@ -5,7 +5,7 @@ class AxisSlaveAgent #(
 
     typedef uvm_analysis_port#(AxisTransaction#(DATA_WIDTH)) AnalysisPort;
     typedef virtual AxisIf#(DATA_WIDTH) Vif;
-    typedef AxisSlaveDriver Driver;
+    typedef AxisSlaveDriver #(DATA_WIDTH) Driver;
     typedef AxisMonitor#(DATA_WIDTH) Monitor;
     typedef AxisSlaveSeqr Seqr;
 

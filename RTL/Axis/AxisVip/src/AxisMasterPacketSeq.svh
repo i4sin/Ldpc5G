@@ -5,7 +5,7 @@ class AxisMasterPacketSeq #(
 
     typedef AxisMasterPacket#(DATA_WIDTH) Packet;
 
-    local int packets_count;
+    local int unsigned packets_count;
 
     function new(string name = "AxisMasterPacketSeq");
         super.new(name);
@@ -17,12 +17,12 @@ class AxisMasterPacketSeq #(
     endtask
 
     local function void get_packets_count();
-        ConfigDb#(int)::get(m_sequencer, "", "packets_count", packets_count);
+        ConfigDb#(int unsigned)::get(m_sequencer, "", "packets_count", packets_count);
     endfunction
 
-    local function void send_packet();
+    local task send_packet();
         Packet packet = Packet::type_id::create("packet", m_sequencer);
         assert(packet.randomize());
         packet.start(m_sequencer, this);
-    endfunction
+    endtask
 endclass

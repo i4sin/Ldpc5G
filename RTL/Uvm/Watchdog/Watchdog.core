@@ -4,17 +4,17 @@ name: Yasin:Uvm:Watchdog
 description: Uvm's Watchdog IPCore
 
 filesets:
-  tb_files:
+  package_files:
     logical_name: tb_lib
     files:
-      - test/Watchdog.sv
-      - test/Watchdog.svh: {is_include_file: true}
+      - src/Watchdog.sv
+      - src/Watchdog.svh: {is_include_file: true}
 
     file_type: systemVerilogSource
     depend:
-      - Yasin:TestInterfaces:ClockIf
+      - Yasin:Uvm:ConfigDb
 
 targets:
   default: &default
     filesets:
-      - tb_files
+      - package_files

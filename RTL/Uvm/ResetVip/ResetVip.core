@@ -4,26 +4,22 @@ name: Yasin:Uvm:ResetVip
 description: Reset Verification IPCore
 
 filesets:
-  rtl_files:
-    files:
-      - src/ResetVip.sv
-    file_type: systemVerilogSource
-
-  tb_files:
+  package_files:
     logical_name: tb_lib
     files:
-      - test/ResetVip_tb.sv
-      - test/InitialResetSeq.svh: {is_include_file: true}
-      - test/ResetAgent.svh: {is_include_file: true}
-      - test/ResetDriver.svh: {is_include_file: true}
-      - test/ResetItem.svh: {is_include_file: true}
-      - test/ResetSeqr.svh: {is_include_file: true}
+      - src/ResetVip.sv
+      - src/InitialResetSeq.svh: {is_include_file: true}
+      - src/ResetAgent.svh: {is_include_file: true}
+      - src/ResetDriver.svh: {is_include_file: true}
+      - src/ResetItem.svh: {is_include_file: true}
+      - src/ResetSeqr.svh: {is_include_file: true}
 
     file_type: systemVerilogSource
     depend:
       - Yasin:TestInterfaces:ResetIf
+      - Yasin:Uvm:ConfigDb
 
 targets:
   default: &default
     filesets:
-      - rtl_files
+      - package_files

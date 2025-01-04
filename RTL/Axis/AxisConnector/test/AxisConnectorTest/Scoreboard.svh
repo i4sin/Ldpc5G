@@ -15,7 +15,7 @@ class Scoreboard #(
         output_analysis_fifo = new("output_analysis_fifo", this);
     endfunction
 
-    virtual function void run_phase(uvm_phase phase);
+    virtual task run_phase(uvm_phase phase);
         forever begin
             Transaction input_transaction;
             Transaction output_transaction;
@@ -23,7 +23,7 @@ class Scoreboard #(
             output_analysis_fifo.get(output_transaction);
             check_matching(input_transaction, output_transaction);
         end
-    endfunction
+    endtask
 
     local function void check_matching(Transaction input_transaction, Transaction output_transaction);
         if (!input_transaction.compare(output_transaction)) begin

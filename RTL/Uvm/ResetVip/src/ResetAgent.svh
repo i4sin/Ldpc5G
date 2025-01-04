@@ -11,7 +11,6 @@ class ResetAgent extends uvm_agent;
 
     function new(string name, uvm_component parent);
         super.new(name, parent);
-        analysis_port = new("analysis_port", this);
     endfunction
     
     virtual function void build_phase(uvm_phase phase);

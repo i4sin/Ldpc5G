@@ -21,6 +21,11 @@ filesets:
     file_type: systemVerilogSource
     depend:
       - Yasin:Axis:AxisConnectorTest
+      - Yasin:TestInterfaces:ClockIf
+      - Yasin:TestInterfaces:ResetIf
+      - Yasin:Uvm:BaseTest
+      - Yasin:Uvm:ConfigDb
+      - Yasin:Uvm:ResetVip
       - Yasin:TestUtils:Vunit
 
 targets:

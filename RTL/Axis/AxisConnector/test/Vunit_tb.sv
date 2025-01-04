@@ -2,54 +2,62 @@
 `define PERIOD 20ns/1ps
 
 module AxisConnector_tb();
-    string runner_cfg = "";
+    parameter string runner_cfg = "";
     AxisConnectorTest #(
-        .runner_cfg(runner_cfg),
-        .DATA_WIDTH(64)
-    ) test;
+        .DATA_WIDTH(64),
+        .runner_config(runner_cfg)
+    ) test();
 endmodule
 
 module AxisConnectorTest();
     parameter DATA_WIDTH = 0;
     
     import vunit_pkg::*;
-    `include "vunit_defines.svh"
     import uvm_pkg::*;
-    `include "uvm_macros.svh"
+    `include "vunit_defines.svh"
+
+    import CONFIG_DB::*;
+    import TEST_CASES::*;
+
+    typedef uvm_component_registry#(Test#(DATA_WIDTH), $sformatf("Test#(%0d)",DATA_WIDTH)) TestCase;
 
     const int PACKETS_COUNT = 512;
-    const long int WATCHDOG_CLOCKS = 5000000;
+    const longint WATCHDOG_CLOCKS = 5000000;
 
-    bit clk = 0;
-    bit resetn = 0;
-    initial forever #(`PERIOD / 2) clk = ~clk;
+    ClockIf clock_if ();
+    initial clock_if.clk = 0;
+    always #(`PERIOD / 2) clock_if.clk = ~clock_if.clk;
     
+    ResetIf reset_if (clock_if.clk);
+
     AxisIf #(
         .DATA_WIDTH(DATA_WIDTH)
     ) s_axis (
-        .aclk(clk),
-        .aresetn(resetn)
+        .aclk(clock_if.clk),
+        .aresetn(reset_if.resetn)
     );
     AxisIf #(
         .DATA_WIDTH(DATA_WIDTH)
     ) m_axis (
-        .aclk(clk),
-        .aresetn(resetn)
+        .aclk(clock_if.clk),
+        .aresetn(reset_if.resetn)
     );
-    AxisConnector (
+    AxisConnector dut (
         .s_axis(s_axis),
         .m_axis(m_axis)
     );
 
-    `TEST_SUITE_FROM_PARAMETERS(runner_config) begin
+    `TEST_SUITE_FROM_PARAMETER(runner_config) begin
         `TEST_CASE_SETUP begin
             ConfigDb#(int)::set(null, "uvm_test_top.master_seq", "packets_count", PACKETS_COUNT);
-            ConfigDb#(long int)::set(null, "uvm_test_top.watchdog", "watchdog_clocks", WATCHDOG_CLOCKS);
-            ConfigDb#(virtual AxisIf#(DATA_WIDTH))::set(null, "uvm_test_top.env", "m_axis", m_axis);
-            ConfigDb#(virtual AxisIf#(DATA_WIDTH))::set(null, "uvm_test_top.env", "m_axis", m_axis);
+            ConfigDb#(longint)::set(null, "uvm_test_top.watchdog", "watchdog_clocks", WATCHDOG_CLOCKS);
+            ConfigDb#(virtual ClockIf)::set(null, "uvm_test_top.watchdog", "clock_vif", clock_if);
+            ConfigDb#(virtual ResetIf)::set(null, "uvm_test_top.env", "reset_vif", reset_if);
+            ConfigDb#(virtual AxisIf#(DATA_WIDTH))::set(null, "uvm_test_top.env", "s_axis_vif", s_axis);
+            ConfigDb#(virtual AxisIf#(DATA_WIDTH))::set(null, "uvm_test_top.env", "m_axis_vif", m_axis);
         end
         `TEST_CASE("random_test") begin
-            run_test("Test#(%0d)", DATA_WIDTH);
+            run_test($sformatf("Test#(%0d)", DATA_WIDTH));
         end
     end
 endmodule

@@ -1,5 +1,5 @@
 interface ResetIf (
-    input aclk
+    input clk
 );
-    logic aresetn;
+    logic resetn;
 endinterface

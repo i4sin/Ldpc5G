@@ -24,8 +24,8 @@ class ResetDriver extends uvm_driver #(ResetItem);
     endtask
 
     local task drive(int length);
-        vif.aresetn <= 0;
-        repeat (length) @(posedge vif.aclk);
-        vif.aresetn <= 1;
+        vif.resetn <= 0;
+        repeat (length) @(posedge vif.clk);
+        vif.resetn <= 1;
     endtask
 endclass
