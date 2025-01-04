@@ -1,0 +1,47 @@
+CAPI=2: 2
+
+name: Yasin:BscProject:LdpcLoopWrapper
+description: Simple LdpcLoopWrapper
+
+filesets:
+  rtl_files:
+    files:
+      - src/LdpcLoopWrapper.sv
+    file_type: systemVerilogSource
+    depend:
+      - Yasin:TestInterfaces:AxisIf
+
+  tb_files:
+    logical_name: tb_lib
+    files:
+      - test/TestCase/TestCases.sv
+      - test/TestCase/Test.svh: {is_include_file: true}
+      - test/Vunit_tb.sv
+
+    file_type: systemVerilogSource
+    depend:
+      - Yasin:BscProject:LdpcLoopWrapperTest
+      - Yasin:TestInterfaces:ClockIf
+      - Yasin:TestInterfaces:ResetIf
+      - Yasin:Uvm:BaseTest
+      - Yasin:Uvm:ConfigDb
+      - Yasin:Uvm:ResetVip
+      - Yasin:TestUtils:Vunit
+
+targets:
+  default: &default
+    filesets:
+      - rtl_files
+
+  synthesis:
+    <<: *default
+
+  test:
+    <<: *default
+    default_tool: vunit
+    tools:
+      vunit:
+        vunit_runner: vunit.py
+    filesets_append:
+      - tb_files
+    toplevel: DontCare

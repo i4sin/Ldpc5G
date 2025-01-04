@@ -1,0 +1,29 @@
+CAPI=2: 2
+
+name: Yasin:BscProject:LdpcLoopWrapperTest
+description: LdpcLoopWrapperTest
+
+filesets:
+  tb_files:
+    files:
+      - LdpcLoopWrapperTest.sv
+      - Env.svh: {is_include_file: true}
+      - Scoreboard.svh: {is_include_file: true}
+    file_type: systemVerilogSource
+    depend:
+      - Yasin:Axis:AxisVip
+      - Yasin:TestInterfaces:AxisIf
+      - Yasin:TestInterfaces:ClockIf
+      - Yasin:TestInterfaces:ResetIf
+      - Yasin:Uvm:ConfigDb
+      - Yasin:Uvm:ResetVip
+
+targets:
+  default: &default
+    filesets:
+      - tb_files
+  test:
+    <<: *default
+    filesets_append:
+      - tb_files
+    toplevel: DontCare
