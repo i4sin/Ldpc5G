@@ -1,6 +1,6 @@
 CAPI=2: 2
 
-name: Yasin:RTL:AxisConnector
+name: Yasin:Axis:AxisConnector
 description: AxisConnector
 
 filesets:
@@ -20,7 +20,7 @@ filesets:
 
     file_type: systemVerilogSource
     depend:
-      - Yasin:RTL:AxisConnectorTest
+      - Yasin:Axis:AxisConnectorTest
       - Yasin:TestUtils:Vunit
 
 targets:

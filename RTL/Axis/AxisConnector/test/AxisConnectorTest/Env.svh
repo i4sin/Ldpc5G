@@ -1,7 +1,7 @@
 class Env #(
     parameter DATA_WIDTH
 ) extends uvm_env;
-    `uvm_component_utils(Env#(DATA_WIDTH))
+    `uvm_component_param_utils(Env#(DATA_WIDTH))
 
     typedef AxisMasterAgent#(DATA_WIDTH) MasterAgent;
     typedef AxisSlaveAgent#(DATA_WIDTH) SlaveAgent;
