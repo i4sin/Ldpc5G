@@ -49,6 +49,7 @@ module AxisConnectorTest();
 
     `TEST_SUITE_FROM_PARAMETER(runner_config) begin
         `TEST_CASE_SETUP begin
+            uvm_top.finish_on_completion = 0;
             ConfigDb#(int)::set(null, "uvm_test_top.master_seq", "packets_count", PACKETS_COUNT);
             ConfigDb#(longint)::set(null, "uvm_test_top.watchdog", "watchdog_clocks", WATCHDOG_CLOCKS);
             ConfigDb#(virtual ClockIf)::set(null, "uvm_test_top.watchdog", "clock_vif", clock_if);
