@@ -15,7 +15,7 @@ filesets:
     logical_name: tb_lib
     files:
       - test/TestCase/TestCases.sv
-      - test/TestCase/Test.sv: {is_include_file: true}
+      - test/TestCase/Test.svh: {is_include_file: true}
       - test/Vunit_tb.sv
 
     file_type: systemVerilogSource

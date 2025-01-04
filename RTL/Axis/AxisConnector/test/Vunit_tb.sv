@@ -1,17 +1,12 @@
 `timescale 1ns/1ps
 `define PERIOD 20ns/1ps
 
-module AxisConnector_tb (
+module AxisConnector_tb();
     string runner_cfg = "";
-    module AxisConnectorTest #(
+    AxisConnectorTest #(
+        .runner_cfg(runner_cfg),
         .DATA_WIDTH(64)
-    ) test (
-        .runner_config(runner_cfg),
-        .s_axis(s_axis),
-        .m_axis(m_axis)
-    );
-    endmodule
-    );
+    ) test;
 endmodule
 
 module AxisConnectorTest();
@@ -20,7 +15,7 @@ module AxisConnectorTest();
     import vunit_pkg::*;
     `include "vunit_defines.svh"
     import uvm_pkg::*;
-    `include “uvm_macros.svh”
+    `include "uvm_macros.svh"
 
     const int PACKETS_COUNT = 512;
     const long int WATCHDOG_CLOCKS = 5000000;
