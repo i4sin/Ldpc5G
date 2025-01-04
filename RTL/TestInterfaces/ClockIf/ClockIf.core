@@ -8,8 +8,6 @@ filesets:
     files:
       - src/ClockIf.sv
     file_type: systemVerilogSource
-    # depend:
-      # - Yasin:TestUtils:Vunit
 
 targets:
   default: &default

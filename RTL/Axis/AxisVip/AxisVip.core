@@ -1,6 +1,6 @@
 CAPI=2: 2
 
-name: Yasin:RTL:AxisVip
+name: Yasin:Axis:AxisVip
 description: Axis Verification IPCore
 
 filesets:
