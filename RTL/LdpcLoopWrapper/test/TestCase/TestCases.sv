@@ -6,6 +6,7 @@ package TEST_CASES;
     import BASE_TEST::*;
     import CONFIG_DB::*;
     import LDPC_LOOP_WRAPPER_TEST::*;
+    import RANGE::*;
     import RESET_VIP::*;
 
     `include "Test.svh"
