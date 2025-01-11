@@ -1,0 +1,20 @@
+CAPI=2: 2
+
+name: Yasin:Uvm:Range
+description: Uvm's Range IPCore
+
+filesets:
+  package_files:
+    logical_name: tb_lib
+    files:
+      - src/Range.sv
+      - src/Range.svh: {is_include_file: true}
+
+    file_type: systemVerilogSource
+    depend:
+      - Yasin:Uvm:ConfigDb
+
+targets:
+  default: &default
+    filesets:
+      - package_files
