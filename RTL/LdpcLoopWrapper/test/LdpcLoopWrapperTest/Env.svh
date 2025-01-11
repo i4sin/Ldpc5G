@@ -7,10 +7,15 @@ class Env #(
     typedef virtual ResetIf ResetVif;
     typedef virtual AxisIf#(CONTROL_WIDTH) ControlVif;
     typedef virtual AxisIf#(DATA_WIDTH) DataVif;
+
     typedef AxisMasterAgent#(CONTROL_WIDTH) ControlMasterAgent;
     typedef AxisMasterAgent#(DATA_WIDTH) DataMasterAgent;
     typedef AxisSlaveAgent#(CONTROL_WIDTH) ControlSlaveAgent;
     typedef AxisSlaveAgent#(DATA_WIDTH) DataSlaveAgent;
+
+    typedef AxisMasterSeqr#(CONTROL_WIDTH) ControlMasterSeqr;
+    typedef AxisMasterSeqr#(DATA_WIDTH) DataMasterSeqr;
+
     typedef Scoreboard#(CONTROL_WIDTH, DATA_WIDTH) Scoreboard;
 
     local ResetVif reset_vif;
@@ -60,23 +65,23 @@ class Env #(
         data_slave_agent.analysis_port.connect(scoreboard.output_data_fifo.analysis_export);
     endfunction
 
-    function ResetAgent get_reset_agent();
-        return reset_agent;
+    function ResetSeqr get_reset_seqr();
+        return reset_agent.get_seqr();
     endfunction
 
-    function ControlMasterAgent get_control_master_agent();
-        return control_master_agent;
+    function ControlMasterSeqr get_control_master_seqr();
+        return control_master_agent.get_seqr();
     endfunction
 
-    function DataMasterAgent get_data_master_agent();
-        return data_master_agent;
+    function DataMasterSeqr get_data_master_seqr();
+        return data_master_agent.get_seqr();
     endfunction
 
-    function ControlSlaveAgent get_control_slave_agent();
-        return control_slave_agent;
+    function AxisSlaveSeqr get_control_slave_seqr();
+        return control_slave_agent.get_seqr();
     endfunction
 
-    function DataSlaveAgent get_data_slave_agent();
-        return data_slave_agent;
+    function AxisSlaveSeqr get_data_slave_seqr();
+        return data_slave_agent.get_seqr();
     endfunction
 endclass

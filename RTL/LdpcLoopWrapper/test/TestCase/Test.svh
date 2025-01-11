@@ -26,7 +26,7 @@ class Test #(
     endfunction
 
     virtual task reset_phase(uvm_phase phase);
-        ResetSeqr reset_seqr = env.get_reset_agent().get_seqr();
+        ResetSeqr reset_seqr = env.get_reset_seqr();
         InitialResetSeq reset_seq = InitialResetSeq::type_id::create("reset_seq", reset_seqr);
         phase.raise_objection(this);
         reset_seq.start(reset_seqr);
@@ -34,10 +34,10 @@ class Test #(
     endtask
 
     virtual task main_phase(uvm_phase phase);
-        ControlMasterSeqr control_master_seqr = env.get_control_master_agent().get_seqr();
-        DataMasterSeqr data_master_seqr = env.get_data_master_agent().get_seqr();
-        AxisSlaveSeqr control_slave_seqr = env.get_control_slave_agent().get_seqr();
-        AxisSlaveSeqr data_slave_seqr = env.get_data_slave_agent().get_seqr();
+        ControlMasterSeqr control_master_seqr = env.get_control_master_seqr();
+        DataMasterSeqr data_master_seqr = env.get_data_master_seqr();
+        AxisSlaveSeqr control_slave_seqr = env.get_control_slave_seqr();
+        AxisSlaveSeqr data_slave_seqr = env.get_data_slave_seqr();
         ControlMasterSeq control_master_seq = ControlMasterSeq::type_id::create("control_master_seq", data_master_seqr);
         DataMasterSeq data_master_seq = DataMasterSeq::type_id::create("data_master_seq", data_master_seqr);
         AxisSlaveSeq control_slave_seq = AxisSlaveSeq::type_id::create("control_slave_seq", data_master_seqr);
