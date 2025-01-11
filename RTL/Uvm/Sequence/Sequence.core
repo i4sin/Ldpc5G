@@ -1,0 +1,18 @@
+CAPI=2: 2
+
+name: Yasin:Uvm:Sequence
+description: Uvm's Sequence IPCore
+
+filesets:
+  package_files:
+    logical_name: tb_lib
+    files:
+      - src/Sequence.sv
+      - src/Seq.svh: {is_include_file: true}
+
+    file_type: systemVerilogSource
+
+targets:
+  default: &default
+    filesets:
+      - package_files
