@@ -57,14 +57,14 @@ class Test #(
     local function ControlMasterSeq create_control_master_seq(ControlMasterSeqr control_master_seqr);
         ControlMasterSeq control_master_seq = ControlMasterSeq::type_id::create("control_master_seq", control_master_seqr);
         control_master_seq.set_sequencer(control_master_seqr);
-        control_master_seq.randomize();
+        assert (control_master_seq.randomize());
         return control_master_seq;
     endfunction
 
     local function DataMasterSeq create_data_master_seq(DataMasterSeqr data_master_seqr);
         DataMasterSeq data_master_seq = DataMasterSeq::type_id::create("data_master_seq", data_master_seqr);
         data_master_seq.set_sequencer(data_master_seqr);
-        data_master_seq.randomize();
+        assert (data_master_seq.randomize());
         return data_master_seq;
     endfunction
 endclass
