@@ -4,8 +4,9 @@ virtual class Seq #(
 ) extends uvm_sequence #(REQ, RSP);
     `uvm_object_param_utils(Seq#(REQ, RSP))
 
-    function new(string name = "Seq");
+    function new(string name = "");
         super.new(name);
+        assert (name != "");
     endfunction
 
     function void pre_randomize();

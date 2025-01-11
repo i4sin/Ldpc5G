@@ -3,7 +3,8 @@ class ResetItem extends uvm_sequence_item;
 
     int length = 3;
 
-    function new(string name = "ResetItem");
+    function new(string name = "");
         super.new(name);
+        assert (name != "");
     endfunction
 endclass

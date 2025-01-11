@@ -6,8 +6,9 @@ class AxisSlaveItem extends uvm_sequence_item;
         delay inside {[0:10]};
     }
 
-    function new(string name = "AxisSlaveItem");
+    function new(string name = "");
         super.new(name);
+        assert (name != "");
     endfunction
 
     virtual function void do_print(uvm_printer printer);

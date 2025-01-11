@@ -3,8 +3,9 @@ class InitialResetSeq extends uvm_sequence #(ResetItem);
 
     typedef ResetItem Item;
 
-    function new(string name = "InitialResetSeq");
+    function new(string name = "");
         super.new(name);
+        assert (name != "");
     endfunction
 
     virtual task body();

@@ -3,8 +3,9 @@ class AxisSlaveSeq extends uvm_sequence #(AxisSlaveItem);
 
     typedef AxisSlaveItem Item;
 
-    function new(string name = "AxisSlaveSeq");
+    function new(string name = "");
         super.new(name);
+        assert (name != "");
     endfunction
 
     virtual task body();

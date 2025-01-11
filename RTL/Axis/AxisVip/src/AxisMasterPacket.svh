@@ -12,8 +12,9 @@ class AxisMasterPacket #(
         packet_length inside {[size_words_range.get_min():size_words_range.get_max()]};
     }
 
-    function new(string name = "AxisMasterPacket");
+    function new(string name = "");
         super.new(name);
+        assert (name != "");
     endfunction
 
     virtual function void configure();

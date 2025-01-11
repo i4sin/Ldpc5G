@@ -9,8 +9,9 @@ class AxisTransaction #(
     logic [DATA_WIDTH/8-1:0] tkeep;
     logic tlast;
 
-    function new(string name = "AxisTransaction");
+    function new(string name = "");
         super.new(name);
+        assert (name != "");
     endfunction
 
     virtual function bit do_compare(uvm_object rhs, uvm_comparer comparer);

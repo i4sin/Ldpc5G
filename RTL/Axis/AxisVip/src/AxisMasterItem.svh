@@ -12,8 +12,9 @@ class AxisMasterItem #(
     rand logic [DATA_WIDTH/8-1:0] tkeep;
     rand logic tlast;
 
-    function new(string name = "AxisMasterItem");
+    function new(string name = "");
         super.new(name);
+        assert (name != "");
     endfunction
 
     virtual function void do_print(uvm_printer printer);

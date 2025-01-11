@@ -7,8 +7,9 @@ class AxisMasterPacketSeq #(
 
     local int unsigned packets_count;
 
-    function new(string name = "AxisMasterPacketSeq");
+    function new(string name = "");
         super.new(name);
+        assert (name != "");
     endfunction
 
     virtual function void configure();
