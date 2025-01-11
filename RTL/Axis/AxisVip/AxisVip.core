@@ -25,6 +25,8 @@ filesets:
     depend:
       - Yasin:TestInterfaces:AxisIf
       - Yasin:Uvm:ConfigDb
+      - Yasin:Uvm:Range
+      - Yasin:Uvm:Sequence
 
 targets:
   default: &default

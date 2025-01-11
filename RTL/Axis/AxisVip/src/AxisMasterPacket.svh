@@ -1,17 +1,23 @@
 class AxisMasterPacket #(
     parameter DATA_WIDTH
-) extends uvm_sequence #(AxisMasterItem#(DATA_WIDTH));
+) extends Seq #(AxisMasterItem#(DATA_WIDTH));
     `uvm_object_param_utils(AxisMasterPacket#(DATA_WIDTH))
 
     typedef AxisMasterItem#(DATA_WIDTH) Item;
 
+    local Range size_words_range;
+
     rand int packet_length;
     constraint c_packet_length {
-        packet_length inside {[1:100]};
+        packet_length inside {[size_words_range.get_min():size_words_range.get_max()]};
     }
 
     function new(string name = "AxisMasterPacket");
         super.new(name);
+    endfunction
+
+    virtual function void configure();
+        ConfigDb#(Range)::get(m_sequencer, "", "size_words_range", size_words_range);
     endfunction
 
     virtual task body();

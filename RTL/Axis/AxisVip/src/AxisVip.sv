@@ -3,6 +3,8 @@ package AXIS_VIP;
     `include "uvm_macros.svh"
     
     import CONFIG_DB::*;
+    import RANGE::*;
+    import SEQUENCE::*;
 
     `include "AxisMasterItem.svh"
     `include "AxisMasterPacket.svh"
