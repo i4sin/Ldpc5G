@@ -1,0 +1,20 @@
+CAPI=2: 2
+
+name: Yasin:Uvm:Driver
+description: Uvm's Driver IPCore
+
+filesets:
+  package_files:
+    logical_name: tb_lib
+    files:
+      - src/Driver.sv
+      - src/Driver.svh: {is_include_file: true}
+
+    file_type: systemVerilogSource
+    depend:
+      - Yasin:Uvm:ConfigDb
+
+targets:
+  default: &default
+    filesets:
+      - package_files

@@ -1,19 +1,10 @@
 class AxisSlaveDriver #(
     parameter DATA_WIDTH
-) extends uvm_driver #(AxisSlaveItem);
+) extends Driver #(virtual AxisIf#(DATA_WIDTH), AxisSlaveItem);
     `uvm_component_param_utils(AxisSlaveDriver#(DATA_WIDTH))
-
-    typedef AxisSlaveItem Item;
-    typedef virtual AxisIf#(DATA_WIDTH) Vif;
-
-    local Vif vif;
 
     function new(string name, uvm_component parent);
         super.new(name, parent);
-    endfunction
-    
-    virtual function void build_phase(uvm_phase phase);
-        ConfigDb#(Vif)::get(this, "", "vif", vif);
     endfunction
 
     virtual task run_phase(uvm_phase phase);

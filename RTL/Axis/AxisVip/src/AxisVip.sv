@@ -3,6 +3,7 @@ package AXIS_VIP;
     `include "uvm_macros.svh"
     
     import CONFIG_DB::*;
+    import DRIVER::*;
     import RANGE::*;
     import SEQUENCE::*;
 

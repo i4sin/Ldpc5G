@@ -1,17 +1,8 @@
-class ResetDriver extends uvm_driver #(ResetItem);
+class ResetDriver extends Driver #(virtual ResetIf, ResetItem);
     `uvm_component_utils(ResetDriver)
-
-    typedef ResetItem Item;
-    typedef virtual ResetIf Vif;
-
-    local Vif vif;
 
     function new(string name, uvm_component parent);
         super.new(name, parent);
-    endfunction
-    
-    virtual function void build_phase(uvm_phase phase);
-        ConfigDb#(Vif)::get(this, "", "vif", vif);
     endfunction
 
     virtual task run_phase(uvm_phase phase);
