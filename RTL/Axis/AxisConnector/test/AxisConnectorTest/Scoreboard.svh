@@ -25,6 +25,15 @@ class Scoreboard #(
         end
     endtask
 
+    virtual function void check_phase(uvm_phase phase);
+        if (input_analysis_fifo.used() != 0)
+            `uvm_error("SCOREBOARD", $sformatf(
+                "input_analysis_fifo is not empty! remained transactions: %0d", input_analysis_fifo.used()))
+        if (output_analysis_fifo.used() != 0)
+            `uvm_error("SCOREBOARD", $sformatf(
+                "output_analysis_fifo is not empty! remained transactions: %0d", output_analysis_fifo.used()))
+    endfunction
+
     local function void check_matching(Transaction input_transaction, Transaction output_transaction);
         if (!input_transaction.compare(output_transaction)) begin
             `uvm_error("SCOREBOARD", $sformatf("transactions don't match! \ninput_transaction: %s\noutput_transaction: %s\n", input_transaction.sprint(), output_transaction.sprint()))
