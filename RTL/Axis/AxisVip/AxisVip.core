@@ -12,7 +12,6 @@ filesets:
       - src/AxisMasterDriver.svh: {is_include_file: true}
       - src/AxisMasterItem.svh: {is_include_file: true}
       - src/AxisMasterPacket.svh: {is_include_file: true}
-      - src/AxisMasterPacketSeq.svh: {is_include_file: true}
       - src/AxisMasterSeqr.svh: {is_include_file: true}
       - src/AxisMonitor.svh: {is_include_file: true}
       - src/AxisSlaveAgent.svh: {is_include_file: true}

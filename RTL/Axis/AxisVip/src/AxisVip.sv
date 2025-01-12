@@ -10,7 +10,6 @@ package AXIS_VIP;
 
     `include "AxisMasterItem.svh"
     `include "AxisMasterPacket.svh"
-    `include "AxisMasterPacketSeq.svh"
     `include "AxisSlaveItem.svh"
     `include "AxisSlaveSeq.svh"
     `include "AxisTransaction.svh"
