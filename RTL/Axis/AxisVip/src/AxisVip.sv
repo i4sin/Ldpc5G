@@ -4,6 +4,7 @@ package AXIS_VIP;
     
     import CONFIG_DB::*;
     import DRIVER::*;
+    import MONITOR::*;
     import RANGE::*;
     import SEQUENCE::*;
 

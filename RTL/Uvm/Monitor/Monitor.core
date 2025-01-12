@@ -1,0 +1,20 @@
+CAPI=2: 2
+
+name: Yasin:Uvm:Monitor
+description: Uvm's Monitor IPCore
+
+filesets:
+  package_files:
+    logical_name: tb_lib
+    files:
+      - src/Monitor.sv
+      - src/Monitor.svh: {is_include_file: true}
+
+    file_type: systemVerilogSource
+    depend:
+      - Yasin:Uvm:ConfigDb
+
+targets:
+  default: &default
+    filesets:
+      - package_files

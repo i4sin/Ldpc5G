@@ -26,6 +26,7 @@ filesets:
       - Yasin:TestInterfaces:AxisIf
       - Yasin:Uvm:ConfigDb
       - Yasin:Uvm:Driver
+      - Yasin:Uvm:Monitor
       - Yasin:Uvm:Range
       - Yasin:Uvm:Sequence
 
