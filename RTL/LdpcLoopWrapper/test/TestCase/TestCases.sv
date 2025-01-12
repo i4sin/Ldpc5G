@@ -8,6 +8,7 @@ package TEST_CASES;
     import LDPC_LOOP_WRAPPER_TEST::*;
     import RANGE::*;
     import RESET_VIP::*;
+    import SEQUENCE::*;
 
     `include "Test.svh"
 endpackage

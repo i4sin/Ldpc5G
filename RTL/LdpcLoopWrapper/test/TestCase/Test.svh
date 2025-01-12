@@ -4,9 +4,12 @@ class Test #(
 ) extends BaseTest;
     `uvm_component_param_utils(Test#(CONTROL_WIDTH, DATA_WIDTH))
 
+    localparam string CONTROL_PACKET_NAME = "control_packet";
+    localparam string DATA_PACKET_NAME = "data_packet";
+
     typedef Env #(CONTROL_WIDTH, DATA_WIDTH) Env;
-    typedef AxisMasterPacketSeq#(CONTROL_WIDTH) ControlMasterSeq;
-    typedef AxisMasterPacketSeq#(DATA_WIDTH) DataMasterSeq;
+    typedef CountSeq#(AxisMasterPacket#(CONTROL_WIDTH), CONTROL_PACKET_NAME) ControlMasterSeq;
+    typedef CountSeq#(AxisMasterPacket#(DATA_WIDTH), DATA_PACKET_NAME) DataMasterSeq;
     typedef AxisMasterSeqr#(CONTROL_WIDTH) ControlMasterSeqr;
     typedef AxisMasterSeqr#(DATA_WIDTH) DataMasterSeqr;
 
@@ -22,9 +25,9 @@ class Test #(
     virtual function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         env = Env::type_id::create("env", this);
-        ConfigDb#(int unsigned)::set(this, "env.control_master_agent.seqr", "packets_count", PACKETS_COUNT);
+        ConfigDb#(int unsigned)::set(this, "env.control_master_agent.seqr", "count", PACKETS_COUNT);
         ConfigDb#(Range)::set(this, "env.control_master_agent.seqr", "size_words_range", SIZE_WORDS_RANGE);
-        ConfigDb#(int unsigned)::set(this, "env.data_master_agent.seqr", "packets_count", PACKETS_COUNT);
+        ConfigDb#(int unsigned)::set(this, "env.data_master_agent.seqr", "count", PACKETS_COUNT);
         ConfigDb#(Range)::set(this, "env.data_master_agent.seqr", "size_words_range", SIZE_WORDS_RANGE);
     endfunction
 
