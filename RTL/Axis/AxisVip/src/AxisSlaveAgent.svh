@@ -11,7 +11,6 @@ class AxisSlaveAgent #(
 
     AnalysisPort analysis_port;
 
-    local Vif vif;
     local Driver driver;
     local Monitor monitor;
     local Seqr seqr;
@@ -25,14 +24,16 @@ class AxisSlaveAgent #(
         driver = Driver::type_id::create("driver", this);
         monitor = Monitor::type_id::create("monitor", this);
         seqr = Seqr::type_id::create("seqr", this);
-        ConfigDb#(Vif)::get(this, "", "vif", vif);
-        ConfigDb#(Vif)::set(this, "driver", "vif", vif);
-        ConfigDb#(Vif)::set(this, "monitor", "vif", vif);
     endfunction
 
     virtual function void connect_phase(uvm_phase phase);
         driver.seq_item_port.connect(seqr.seq_item_export);
         monitor.analysis_port.connect(analysis_port);
+    endfunction
+
+    function void set_vif(Vif vif);
+        driver.set_vif(vif);
+        monitor.set_vif(vif);
     endfunction
 
     function Seqr get_seqr();

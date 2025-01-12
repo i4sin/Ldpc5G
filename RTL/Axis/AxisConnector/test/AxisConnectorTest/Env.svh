@@ -29,12 +29,12 @@ class Env #(
         ConfigDb#(ResetVif)::get(this, "", "reset_vif", reset_vif);
         ConfigDb#(Vif)::get(this, "", "s_axis_vif", s_axis_vif);
         ConfigDb#(Vif)::get(this, "", "m_axis_vif", m_axis_vif);
-        ConfigDb#(ResetVif)::set(this, "reset_agent", "vif", reset_vif);
-        ConfigDb#(Vif)::set(this, "master_agent", "vif", s_axis_vif);
-        ConfigDb#(Vif)::set(this, "slave_agent", "vif", m_axis_vif);
     endfunction
 
     virtual function void connect_phase(uvm_phase phase);
+        reset_agent.set_vif(reset_vif);
+        master_agent.set_vif(s_axis_vif);
+        slave_agent.set_vif(m_axis_vif);
         master_agent.analysis_port.connect(scoreboard.input_analysis_fifo.analysis_export);
         slave_agent.analysis_port.connect(scoreboard.output_analysis_fifo.analysis_export);
     endfunction

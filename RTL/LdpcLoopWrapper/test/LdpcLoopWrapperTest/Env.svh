@@ -44,21 +44,18 @@ class Env #(
         scoreboard = Scoreboard::type_id::create("scoreboard", this);
 
         ConfigDb#(ResetVif)::get(this, "", "reset_vif", reset_vif);
-
         ConfigDb#(ControlVif)::get(this, "", "s_axis_control_vif", s_axis_control_vif);
         ConfigDb#(ControlVif)::get(this, "", "m_axis_control_vif", m_axis_control_vif);
         ConfigDb#(DataVif)::get(this, "", "s_axis_data_vif", s_axis_data_vif);
         ConfigDb#(DataVif)::get(this, "", "m_axis_data_vif", m_axis_data_vif);
-
-        ConfigDb#(ResetVif)::set(this, "reset_agent", "vif", reset_vif);
-
-        ConfigDb#(ControlVif)::set(this, "control_master_agent", "vif", s_axis_control_vif);
-        ConfigDb#(ControlVif)::set(this, "control_slave_agent", "vif", m_axis_control_vif);
-        ConfigDb#(DataVif)::set(this, "data_master_agent", "vif", s_axis_data_vif);
-        ConfigDb#(DataVif)::set(this, "data_slave_agent", "vif", m_axis_data_vif);
     endfunction
 
     virtual function void connect_phase(uvm_phase phase);
+        reset_agent.set_vif(reset_vif);
+        control_master_agent.set_vif(s_axis_control_vif);
+        data_master_agent.set_vif(s_axis_data_vif);
+        control_slave_agent.set_vif(m_axis_control_vif);
+        data_slave_agent.set_vif(m_axis_data_vif);
         control_master_agent.analysis_port.connect(scoreboard.input_control_fifo.analysis_export);
         data_master_agent.analysis_port.connect(scoreboard.input_data_fifo.analysis_export);
         control_slave_agent.analysis_port.connect(scoreboard.output_control_fifo.analysis_export);

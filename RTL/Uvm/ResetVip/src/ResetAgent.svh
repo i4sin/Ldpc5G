@@ -5,7 +5,6 @@ class ResetAgent extends uvm_agent;
     typedef ResetDriver Driver;
     typedef ResetSeqr Seqr;
 
-    local Vif vif;
     local Driver driver;
     local Seqr seqr;
 
@@ -16,12 +15,14 @@ class ResetAgent extends uvm_agent;
     virtual function void build_phase(uvm_phase phase);
         driver = Driver::type_id::create("driver", this);
         seqr = Seqr::type_id::create("seqr", this);
-        ConfigDb#(Vif)::get(this, "", "vif", vif);
-        ConfigDb#(Vif)::set(this, "driver", "vif", vif);
     endfunction
 
     virtual function void connect_phase(uvm_phase phase);
         driver.seq_item_port.connect(seqr.seq_item_export);
+    endfunction
+
+    function void set_vif(Vif vif);
+        driver.set_vif(vif);
     endfunction
 
     function Seqr get_seqr();
