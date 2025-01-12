@@ -25,7 +25,9 @@ filesets:
       - Yasin:TestInterfaces:ResetIf
       - Yasin:Uvm:BaseTest
       - Yasin:Uvm:ConfigDb
+      - Yasin:Uvm:Range
       - Yasin:Uvm:ResetVip
+      - Yasin:Uvm:Sequence
       - Yasin:TestUtils:Vunit
 
 targets:

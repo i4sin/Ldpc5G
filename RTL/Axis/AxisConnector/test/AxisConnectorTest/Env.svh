@@ -7,6 +7,7 @@ class Env #(
     typedef virtual AxisIf#(DATA_WIDTH) Vif;
     typedef AxisMasterAgent#(DATA_WIDTH) MasterAgent;
     typedef AxisSlaveAgent#(DATA_WIDTH) SlaveAgent;
+    typedef AxisMasterSeqr#(DATA_WIDTH) MasterSeqr;
     typedef Scoreboard#(DATA_WIDTH) Scoreboard;
 
     local ResetVif reset_vif;
@@ -39,15 +40,15 @@ class Env #(
         slave_agent.analysis_port.connect(scoreboard.output_analysis_fifo.analysis_export);
     endfunction
 
-    function ResetAgent get_reset_agent();
-        return reset_agent;
+    function ResetSeqr get_reset_seqr();
+        return reset_agent.get_seqr();
     endfunction
 
-    function MasterAgent get_master_agent();
-        return master_agent;
+    function MasterSeqr get_master_seqr();
+        return master_agent.get_seqr();
     endfunction
 
-    function SlaveAgent get_slave_agent();
-        return slave_agent;
+    function AxisSlaveSeqr get_slave_seqr();
+        return slave_agent.get_seqr();
     endfunction
 endclass
