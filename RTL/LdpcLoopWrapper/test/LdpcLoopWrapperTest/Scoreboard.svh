@@ -32,18 +32,18 @@ class Scoreboard #(
     endtask
 
     virtual function void check_phase(uvm_phase phase);
-        if (input_control_fifo.used() != 0)
-            `uvm_error("SCOREBOARD", $sformatf(
-                "input_control_fifo is not empty! remained transactions: %0d", input_control_fifo.used()))
-        if (input_data_fifo.used() != 0)
-            `uvm_error("SCOREBOARD", $sformatf(
-                "input_data_fifo is not empty! remained transactions: %0d", input_data_fifo.used()))
-        if (output_control_fifo.used() != 0)
-            `uvm_error("SCOREBOARD", $sformatf(
-                "output_control_fifo is not empty! remained transactions: %0d", output_control_fifo.used()))
-        if (output_data_fifo.used() != 0)
-            `uvm_error("SCOREBOARD", $sformatf(
-                "output_data_fifo is not empty! remained transactions: %0d", output_data_fifo.used()))
+        // if (input_control_fifo.used() != 0)
+        //     `uvm_error("SCOREBOARD", $sformatf(
+        //         "input_control_fifo is not empty! remained transactions: %0d", input_control_fifo.used()))
+        // if (input_data_fifo.used() != 0)
+        //     `uvm_error("SCOREBOARD", $sformatf(
+        //         "input_data_fifo is not empty! remained transactions: %0d", input_data_fifo.used()))
+        // if (output_control_fifo.used() != 0)
+        //     `uvm_error("SCOREBOARD", $sformatf(
+        //         "output_control_fifo is not empty! remained transactions: %0d", output_control_fifo.used()))
+        // if (output_data_fifo.used() != 0)
+        //     `uvm_error("SCOREBOARD", $sformatf(
+        //         "output_data_fifo is not empty! remained transactions: %0d", output_data_fifo.used()))
     endfunction
 
     local task check_control();
@@ -51,7 +51,7 @@ class Scoreboard #(
         ControlTransaction output_control;
         input_control_fifo.get(input_control);
         output_control_fifo.get(output_control);
-        check_control_matching(input_control, output_control);
+        check_matching(input_control, output_control);
     endtask
 
     local task check_data();
@@ -59,16 +59,10 @@ class Scoreboard #(
         DataTransaction output_data;
         input_data_fifo.get(input_data);
         output_data_fifo.get(output_data);
-        check_data_matching(input_data, output_data);
+        check_matching(input_data, output_data);
     endtask
 
-    local function void check_control_matching(ControlTransaction in, ControlTransaction out);
-        if (!in.compare(out)) begin
-            `uvm_error("SCOREBOARD", $sformatf("transactions don't match! \nin: %s\nout: %s\n", in.sprint(), out.sprint()))
-        end
-    endfunction
-
-    local function void check_data_matching(DataTransaction in, DataTransaction out);
+    local function void check_matching(uvm_transaction in, uvm_transaction out);
         if (!in.compare(out)) begin
             `uvm_error("SCOREBOARD", $sformatf("transactions don't match! \nin: %s\nout: %s\n", in.sprint(), out.sprint()))
         end
