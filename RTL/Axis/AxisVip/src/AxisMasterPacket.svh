@@ -18,7 +18,7 @@ class AxisMasterPacket #(
     endfunction
 
     virtual function void configure();
-        ConfigDb#(Range)::get(m_sequencer, "", "size_words_range", size_words_range);
+        ConfigDb#(Range)::get(m_sequencer, get_name(), "size_words_range", size_words_range);
     endfunction
 
     virtual task body();
@@ -31,4 +31,8 @@ class AxisMasterPacket #(
             finish_item(item);
         end
     endtask
+
+    static function void set_size_words_range(string name, uvm_sequencer_base seqr, Range size_words_range);
+        ConfigDb#(Range)::set(null, {seqr.get_full_name(), ".", name}, size_words_range.get_name(), size_words_range);
+    endfunction
 endclass

@@ -12,10 +12,14 @@ class CountSeq #(
     endfunction
 
     virtual function void configure();
-        ConfigDb#(int unsigned)::get(m_sequencer, "", "count", count);
+        ConfigDb#(int unsigned)::get(m_sequencer, get_name(), "count", count);
     endfunction
 
     virtual task body();
         repeat (count) send_random_t();
     endtask
+
+    static function void set_count(string name, uvm_sequencer_base seqr, int unsigned count);
+        ConfigDb#(int unsigned)::set(null, {seqr.get_full_name(), ".", name}, "count", count);
+    endfunction
 endclass
