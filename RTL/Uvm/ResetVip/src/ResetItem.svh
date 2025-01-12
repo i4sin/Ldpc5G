@@ -1,4 +1,4 @@
-class ResetItem extends uvm_sequence_item;
+class ResetItem extends Item;
     `uvm_object_utils(ResetItem)
 
     int length = 3;

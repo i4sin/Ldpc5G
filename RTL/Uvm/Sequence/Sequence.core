@@ -8,9 +8,14 @@ filesets:
     logical_name: tb_lib
     files:
       - src/Sequence.sv
+      - src/CountSeq.svh: {is_include_file: true}
+      - src/InfiniteSeq.svh: {is_include_file: true}
+      - src/Item.svh: {is_include_file: true}
+      - src/RepeatSeq.svh: {is_include_file: true}
       - src/Seq.svh: {is_include_file: true}
-
     file_type: systemVerilogSource
+    depend:
+      - Yasin:Uvm:ConfigDb
 
 targets:
   default: &default

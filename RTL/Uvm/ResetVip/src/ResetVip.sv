@@ -3,6 +3,7 @@ package RESET_VIP;
     `include "uvm_macros.svh"
 
     import CONFIG_DB::*;
+    import SEQUENCE::*;
 
     `include "ResetItem.svh"
     `include "InitialResetSeq.svh"

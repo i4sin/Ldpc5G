@@ -1,7 +1,7 @@
 class AxisSlaveDriver #(
     parameter DATA_WIDTH
 ) extends uvm_driver #(AxisSlaveItem);
-    `uvm_component_utils(AxisSlaveDriver#(DATA_WIDTH))
+    `uvm_component_param_utils(AxisSlaveDriver#(DATA_WIDTH))
 
     typedef AxisSlaveItem Item;
     typedef virtual AxisIf#(DATA_WIDTH) Vif;

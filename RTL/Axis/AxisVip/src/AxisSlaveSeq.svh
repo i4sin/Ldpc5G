@@ -1,4 +1,4 @@
-class AxisSlaveSeq extends uvm_sequence #(AxisSlaveItem);
+class AxisSlaveSeq extends Seq #(AxisSlaveItem);
     `uvm_object_utils(AxisSlaveSeq)
 
     typedef AxisSlaveItem Item;

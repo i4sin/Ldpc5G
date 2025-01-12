@@ -18,6 +18,7 @@ filesets:
     depend:
       - Yasin:TestInterfaces:ResetIf
       - Yasin:Uvm:ConfigDb
+      - Yasin:Uvm:Sequence
 
 targets:
   default: &default

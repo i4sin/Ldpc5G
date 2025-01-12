@@ -1,4 +1,4 @@
-class AxisSlaveItem extends uvm_sequence_item;
+class AxisSlaveItem extends Item;
     `uvm_object_utils(AxisSlaveItem)
 
     rand int delay;

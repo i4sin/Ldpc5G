@@ -1,6 +1,6 @@
 class AxisMasterItem #(
     parameter DATA_WIDTH
-) extends uvm_sequence_item;
+) extends Item;
     `uvm_object_param_utils(AxisMasterItem#(DATA_WIDTH))
 
     rand int delay;

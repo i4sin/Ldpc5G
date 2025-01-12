@@ -1,4 +1,4 @@
-class InitialResetSeq extends uvm_sequence #(ResetItem);
+class InitialResetSeq extends Seq #(ResetItem);
     `uvm_object_utils(InitialResetSeq)
 
     typedef ResetItem Item;
