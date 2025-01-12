@@ -14,7 +14,7 @@ virtual class BaseTest extends uvm_test;
         ConfigDb#(longint)::set(this, "watchdog", "watchdog_clocks", WATCHDOG_CLOCKS);
     endfunction
 
-    virtual function void check_phase(uvm_phase phase);
+    virtual function void report_phase(uvm_phase phase);
         uvm_report_server server = uvm_report_server::get_server();
         int errors_count = server.get_severity_count(UVM_ERROR);
         if (errors_count != 0) `uvm_fatal("TEST", $sformatf("UVM TEST FAILED! errors_count: %0d", errors_count))
