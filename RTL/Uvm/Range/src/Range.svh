@@ -30,4 +30,10 @@ class Range extends uvm_component;
         range.set_max(max);
         return range;
     endfunction
+
+    virtual function void do_print(uvm_printer printer);
+        super.do_print(printer);
+        printer.print_field_int("min", min, $bits(min), UVM_DEC);
+        printer.print_field_int("max", max, $bits(max), UVM_DEC);
+    endfunction
 endclass

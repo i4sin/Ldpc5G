@@ -26,4 +26,9 @@ class AxisMasterPacketSeq #(
         assert(packet.randomize());
         packet.start(m_sequencer, this);
     endtask
+
+    virtual function void do_print(uvm_printer printer);
+        super.do_print(printer);
+        printer.print_field_int("packets_count", packets_count, $bits(packets_count), UVM_DEC);
+    endfunction
 endclass

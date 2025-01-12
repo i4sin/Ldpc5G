@@ -22,4 +22,9 @@ class CountSeq #(
     static function void set_count(string name, uvm_sequencer_base seqr, int unsigned count);
         ConfigDb#(int unsigned)::set(null, {seqr.get_full_name(), ".", name}, "count", count);
     endfunction
+
+    virtual function void do_print(uvm_printer printer);
+        super.do_print(printer);
+        printer.print_field_int("count", count, $bits(count), UVM_DEC);
+    endfunction
 endclass
