@@ -10,8 +10,8 @@ virtual class Driver #(
         super.new(name, parent);
     endfunction
 
-    virtual function void build_phase(uvm_phase phase);
-        ConfigDb#(Vif)::get(this, "", "vif", vif);
+    function void set_vif(Vif vif);
+        this.vif = vif;
     endfunction
 
     virtual function void post_connect_phase(uvm_phase phase);
