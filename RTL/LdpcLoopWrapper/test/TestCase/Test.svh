@@ -8,7 +8,7 @@ class Test #(
     localparam string DATA_PACKET_NAME = "data_packet";
 
     typedef Env #(CONTROL_WIDTH, DATA_WIDTH) Env;
-    typedef AxisMasterPacket#(CONTROL_WIDTH) ControlPacket;
+    typedef AxisMasterEncoderControlItem#(CONTROL_WIDTH) ControlPacket;
     typedef AxisMasterPacket#(DATA_WIDTH) DataPacket;
     typedef CountSeq#(ControlPacket, CONTROL_PACKET_NAME) ControlMasterSeq;
     typedef CountSeq#(DataPacket, DATA_PACKET_NAME) DataMasterSeq;
@@ -58,7 +58,6 @@ class Test #(
     local function ControlMasterSeq create_control_master_seq(ControlMasterSeqr control_master_seqr);
         ControlMasterSeq control_master_seq = ControlMasterSeq::type_id::create("control_master_seq", control_master_seqr);
         ControlMasterSeq::set_count(control_master_seq.get_name(), control_master_seqr, PACKETS_COUNT);
-        ControlPacket::set_size_words_range(CONTROL_PACKET_NAME, control_master_seqr, SIZE_WORDS_RANGE);
         control_master_seq.set_sequencer(control_master_seqr);
         assert (control_master_seq.randomize());
         return control_master_seq;
