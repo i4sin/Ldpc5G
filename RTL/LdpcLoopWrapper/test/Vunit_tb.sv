@@ -4,8 +4,8 @@
 module LdpcLoopWrapper_tb();
     parameter string runner_cfg = "";
     LdpcLoopWrapperTest #(
-        .CONTROL_WIDTH(16),
-        .DATA_WIDTH(64),
+        .CONTROL_WIDTH(40),
+        .DATA_WIDTH(128),
         .runner_config(runner_cfg)
     ) test();
 endmodule
