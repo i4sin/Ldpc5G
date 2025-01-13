@@ -1,5 +1,5 @@
 package LDPC_IP_CONTROL_PKG;
-    logic [2:0] MAX_SCHEDULE = 0;      // DeControl, EnControl          
+    logic [1:0] MAX_SCHEDULE = 0;      // DeControl, EnControl          
     logic [5:0] MB = 8;                // DeControl, EnControl, DeStatus, EnStatus
     logic [7:0] ID;                    // DeControl, EnControl, DeStatus, EnStatus
     logic [5:0] MAX_ITERATIONS = 32;   // DeControl           , DeStatus

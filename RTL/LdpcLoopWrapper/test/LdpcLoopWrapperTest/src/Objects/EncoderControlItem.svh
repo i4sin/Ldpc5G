@@ -5,7 +5,7 @@ class EncoderControlItem #(
 
     local ControlCfg cfg;
 
-    rand logic [2:0] max_schedule;
+    rand logic [1:0] max_schedule;
     rand logic [5:0] mb;
     rand logic [7:0] id;
     rand logic [14:0] reserved;

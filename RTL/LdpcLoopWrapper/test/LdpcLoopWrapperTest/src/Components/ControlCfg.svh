@@ -1,7 +1,7 @@
 class ControlCfg extends uvm_component;
     `uvm_component_utils(ControlCfg)
 
-    rand logic [2:0] max_schedule;
+    rand logic [1:0] max_schedule;
     rand logic [5:0] mb;
     rand logic [5:0] max_iterations;
     rand logic term_on_no_change;
