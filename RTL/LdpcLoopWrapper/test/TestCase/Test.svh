@@ -1,20 +1,20 @@
 import LDPC_IP_CONTROL_PKG::*;
 
 class Test #(
-    parameter CONTROL_WIDTH,
+    parameter CONTROL_STATUS_WIDTH,
     parameter DATA_WIDTH
 ) extends BaseTest;
-    `uvm_component_param_utils(Test#(CONTROL_WIDTH, DATA_WIDTH))
+    `uvm_component_param_utils(Test#(CONTROL_STATUS_WIDTH, DATA_WIDTH))
 
     localparam string ENCODER_CONTROL_ITEM_NAME = "encoder_control_item";
     localparam string DATA_PACKET_NAME = "data_packet";
 
-    typedef Env #(CONTROL_WIDTH, DATA_WIDTH) Env;
-    typedef EncoderControlItem#(CONTROL_WIDTH) EncoderControlItem;
+    typedef Env #(CONTROL_STATUS_WIDTH, DATA_WIDTH) Env;
+    typedef EncoderControlItem#(CONTROL_STATUS_WIDTH) EncoderControlItem;
     typedef AxisMasterPacket#(DATA_WIDTH) DataPacket;
     typedef CountSeq#(EncoderControlItem, ENCODER_CONTROL_ITEM_NAME) EncoderControlMasterSeq;
     typedef CountSeq#(DataPacket, DATA_PACKET_NAME) DataMasterSeq;
-    typedef AxisMasterSeqr#(CONTROL_WIDTH) ControlMasterSeqr;
+    typedef AxisMasterSeqr#(CONTROL_STATUS_WIDTH) ControlMasterSeqr;
     typedef AxisMasterSeqr#(DATA_WIDTH) DataMasterSeqr;
 
     local Env env;

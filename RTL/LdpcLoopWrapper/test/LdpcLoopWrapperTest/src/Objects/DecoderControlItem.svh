@@ -1,7 +1,7 @@
 class DecoderControlItem #(
-    parameter CONTROL_WIDTH
-) extends AxisMasterItem#(CONTROL_WIDTH);
-    `uvm_object_param_utils(DecoderControlItem#(CONTROL_WIDTH))
+    parameter WIDTH
+) extends AxisMasterItem#(WIDTH);
+    `uvm_object_param_utils(DecoderControlItem#(WIDTH))
 
     local ControlCfg cfg;
 

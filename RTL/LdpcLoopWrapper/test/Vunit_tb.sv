@@ -4,14 +4,14 @@
 module LdpcLoopWrapper_tb();
     parameter string runner_cfg = "";
     LdpcLoopWrapperTest #(
-        .CONTROL_WIDTH(40),
+        .CONTROL_STATUS_WIDTH(40),
         .DATA_WIDTH(128),
         .runner_config(runner_cfg)
     ) test();
 endmodule
 
 module LdpcLoopWrapperTest();
-    parameter CONTROL_WIDTH = 0;
+    parameter CONTROL_STATUS_WIDTH = 0;
     parameter DATA_WIDTH = 0;
     
     import vunit_pkg::*;
@@ -21,7 +21,7 @@ module LdpcLoopWrapperTest();
     import CONFIG_DB::*;
     import TEST_CASES::*;
 
-    typedef uvm_component_registry#(Test#(CONTROL_WIDTH, DATA_WIDTH), $sformatf("Test#(%0d, %0d)",CONTROL_WIDTH, DATA_WIDTH)) TestCase;
+    typedef uvm_component_registry#(Test#(CONTROL_STATUS_WIDTH, DATA_WIDTH), $sformatf("Test#(%0d, %0d)",CONTROL_STATUS_WIDTH, DATA_WIDTH)) TestCase;
 
     const int PACKETS_COUNT = 512;
     const longint WATCHDOG_CLOCKS = 5000000;
@@ -33,13 +33,13 @@ module LdpcLoopWrapperTest();
     ResetIf reset_if (clock_if.clk);
 
     AxisIf #(
-        .DATA_WIDTH(CONTROL_WIDTH)
+        .DATA_WIDTH(CONTROL_STATUS_WIDTH)
     ) s_axis_encoder_control (
         .aclk(clock_if.clk),
         .aresetn(reset_if.resetn)
     );
     AxisIf #(
-        .DATA_WIDTH(CONTROL_WIDTH)
+        .DATA_WIDTH(CONTROL_STATUS_WIDTH)
     ) m_axis_decoder_status (
         .aclk(clock_if.clk),
         .aresetn(reset_if.resetn)
@@ -69,13 +69,13 @@ module LdpcLoopWrapperTest();
             ConfigDb#(longint)::set(null, "uvm_test_top.watchdog", "watchdog_clocks", WATCHDOG_CLOCKS);
             ConfigDb#(virtual ClockIf)::set(null, "uvm_test_top.watchdog", "clock_vif", clock_if);
             ConfigDb#(virtual ResetIf)::set(null, "uvm_test_top.env", "reset_vif", reset_if);
-            ConfigDb#(virtual AxisIf#(CONTROL_WIDTH))::set(null, "uvm_test_top.env", "s_axis_encoder_control_vif", s_axis_encoder_control);
-            ConfigDb#(virtual AxisIf#(CONTROL_WIDTH))::set(null, "uvm_test_top.env", "m_axis_decoder_status_vif", m_axis_decoder_status);
+            ConfigDb#(virtual AxisIf#(CONTROL_STATUS_WIDTH))::set(null, "uvm_test_top.env", "s_axis_encoder_control_vif", s_axis_encoder_control);
+            ConfigDb#(virtual AxisIf#(CONTROL_STATUS_WIDTH))::set(null, "uvm_test_top.env", "m_axis_decoder_status_vif", m_axis_decoder_status);
             ConfigDb#(virtual AxisIf#(DATA_WIDTH))::set(null, "uvm_test_top.env", "s_axis_data_vif", s_axis_data);
             ConfigDb#(virtual AxisIf#(DATA_WIDTH))::set(null, "uvm_test_top.env", "m_axis_data_vif", m_axis_data);
         end
         `TEST_CASE("random_test") begin
-            run_test($sformatf("Test#(%0d, %0d)", CONTROL_WIDTH, DATA_WIDTH));
+            run_test($sformatf("Test#(%0d, %0d)", CONTROL_STATUS_WIDTH, DATA_WIDTH));
         end
     end
 endmodule

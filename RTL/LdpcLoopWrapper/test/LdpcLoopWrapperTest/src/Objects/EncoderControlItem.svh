@@ -1,7 +1,7 @@
 class EncoderControlItem #(
-    parameter CONTROL_WIDTH
-) extends AxisMasterItem#(CONTROL_WIDTH);
-    `uvm_object_param_utils(EncoderControlItem#(CONTROL_WIDTH))
+    parameter WIDTH
+) extends AxisMasterItem#(WIDTH);
+    `uvm_object_param_utils(EncoderControlItem#(WIDTH))
 
     local ControlCfg cfg;
 

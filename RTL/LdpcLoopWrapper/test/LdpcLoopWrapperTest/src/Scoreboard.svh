@@ -1,23 +1,23 @@
 class Scoreboard #(
-    parameter CONTROL_WIDTH,
+    parameter CONTROL_STATUS_WIDTH,
     parameter DATA_WIDTH
 ) extends uvm_scoreboard;
-    `uvm_component_param_utils(Scoreboard#(CONTROL_WIDTH, DATA_WIDTH))
+    `uvm_component_param_utils(Scoreboard#(CONTROL_STATUS_WIDTH, DATA_WIDTH))
 
-    typedef AxisTransaction#(CONTROL_WIDTH) ControlTransaction;
+    typedef AxisTransaction#(CONTROL_STATUS_WIDTH) AxisControlStatusTransaction;
     typedef AxisTransaction#(DATA_WIDTH) DataTransaction;
-    typedef uvm_tlm_analysis_fifo #(ControlTransaction) ControlAnalysisFifo;
+    typedef uvm_tlm_analysis_fifo #(AxisControlStatusTransaction) ControlStatusAnalysisFifo;
     typedef uvm_tlm_analysis_fifo #(DataTransaction) DataAnalysisFifo;
 
-    ControlAnalysisFifo input_control_fifo;
-    ControlAnalysisFifo output_control_fifo;
+    ControlStatusAnalysisFifo input_control_fifo;
+    ControlStatusAnalysisFifo output_status_fifo;
     DataAnalysisFifo input_data_fifo;
     DataAnalysisFifo output_data_fifo;
 
     function new(string name, uvm_component parent);
         super.new(name, parent);
         input_control_fifo = new("input_control_fifo", this);
-        output_control_fifo = new("output_control_fifo", this);
+        output_status_fifo = new("output_status_fifo", this);
         input_data_fifo = new("input_data_fifo", this);
         output_data_fifo = new("output_data_fifo", this);
     endfunction
@@ -25,7 +25,7 @@ class Scoreboard #(
     virtual task run_phase(uvm_phase phase);
         forever begin
             fork
-                check_control();
+                check_control_status();
                 check_data();
             join
         end
@@ -38,20 +38,20 @@ class Scoreboard #(
         // if (input_data_fifo.used() != 0)
         //     `uvm_error("SCOREBOARD", $sformatf(
         //         "input_data_fifo is not empty! remained transactions: %0d", input_data_fifo.used()))
-        // if (output_control_fifo.used() != 0)
+        // if (output_status_fifo.used() != 0)
         //     `uvm_error("SCOREBOARD", $sformatf(
-        //         "output_control_fifo is not empty! remained transactions: %0d", output_control_fifo.used()))
+        //         "output_status_fifo is not empty! remained transactions: %0d", output_status_fifo.used()))
         // if (output_data_fifo.used() != 0)
         //     `uvm_error("SCOREBOARD", $sformatf(
         //         "output_data_fifo is not empty! remained transactions: %0d", output_data_fifo.used()))
     endfunction
 
-    local task check_control();
-        ControlTransaction input_control;
-        ControlTransaction output_control;
+    local task check_control_status();
+        AxisControlStatusTransaction input_control;
+        AxisControlStatusTransaction output_status;
         input_control_fifo.get(input_control);
-        output_control_fifo.get(output_control);
-        check_matching(input_control, output_control);
+        output_status_fifo.get(output_status);
+        check_matching(input_control, output_status);
     endtask
 
     local task check_data();
