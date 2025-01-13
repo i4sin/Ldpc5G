@@ -6,12 +6,12 @@ description: LdpcLoopWrapperTest
 filesets:
   tb_files:
     files:
-      - LdpcLoopWrapperTest.sv
-      - ControlCfg.svh: {is_include_file: true}
-      - DecoderControlItem.svh: {is_include_file: true}
-      - EncoderControlItem.svh: {is_include_file: true}
-      - Env.svh: {is_include_file: true}
-      - Scoreboard.svh: {is_include_file: true}
+      - src/LdpcLoopWrapperTest.sv
+      - src/Components/ControlCfg.svh: {is_include_file: true}
+      - src/Objects/DecoderControlItem.svh: {is_include_file: true}
+      - src/Objects/EncoderControlItem.svh: {is_include_file: true}
+      - src/Env.svh: {is_include_file: true}
+      - src/Scoreboard.svh: {is_include_file: true}
     file_type: systemVerilogSource
     depend:
       - Yasin:Axis:AxisVip
