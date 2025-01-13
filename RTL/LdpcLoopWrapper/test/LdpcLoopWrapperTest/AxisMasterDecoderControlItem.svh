@@ -3,19 +3,19 @@ class AxisMasterDecoderControlItem #(
 ) extends AxisMasterItem#(CONTROL_WIDTH);
     `uvm_object_param_utils(AxisMasterDecoderControlItem#(CONTROL_WIDTH))
 
-    rand logic [2:0] max_schedule;
-    rand logic [5:0] mb;
-    rand logic [7:0] id;
-    rand logic [5:0] max_iterations;
-    rand logic term_on_no_change;
-    rand logic term_on_pass;
-    rand logic include_parity_op;
-    rand logic hard_op;
+    rand logic [2:0] max_schedule = MAX_SCHEDULE;
+    rand logic [5:0] mb = MB;
+    rand logic [7:0] id = ID;
+    rand logic [5:0] max_iterations = MAX_ITERATIONS;
+    rand logic term_on_no_change = TERM_ON_NO_CHANGE;
+    rand logic term_on_pass = TERM_ON_PASS;
+    rand logic include_parity_op = INCLUDE_PARITY_OP;
+    rand logic hard_op = HARD_OP;
     rand logic reserved;
-    rand logic [3:0] ms_offset;
-    rand logic [2:0] bg;
-    rand logic [2:0] z_set;
-    rand logic [2:0] z_j;
+    rand logic [3:0] ms_offset = MS_OFFSET;
+    rand logic [2:0] bg = BG;
+    rand logic [2:0] z_set = Z_SET;
+    rand logic [2:0] z_j = Z_J;
 
     constraint c_tdata {
         tdata == {max_schedule, mb, id, max_iterations, term_on_no_change, term_on_pass, include_parity_op, hard_op, reserved, ms_offset, bg, z_set, z_j};

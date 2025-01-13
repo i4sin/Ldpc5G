@@ -3,13 +3,13 @@ class AxisMasterEncoderControlItem #(
 ) extends AxisMasterItem#(CONTROL_WIDTH);
     `uvm_object_param_utils(AxisMasterEncoderControlItem#(CONTROL_WIDTH))
 
-    rand logic [2:0] max_schedule;
-    rand logic [5:0] mb;
+    rand logic [2:0] max_schedule = MAX_SCHEDULE;
+    rand logic [5:0] mb = MB;
     rand logic [7:0] id;
     rand logic [14:0] reserved;
-    rand logic [2:0] bg;
-    rand logic [2:0] z_set;
-    rand logic [2:0] z_j;
+    rand logic [2:0] bg = BG;
+    rand logic [2:0] z_set = Z_SET;
+    rand logic [2:0] z_j = Z_J;
 
     constraint c_tdata {
         tdata == {max_schedule, mb, id, reserved, bg, z_set, z_j};
