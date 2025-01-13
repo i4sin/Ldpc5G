@@ -34,13 +34,13 @@ module LdpcLoopWrapperTest();
 
     AxisIf #(
         .DATA_WIDTH(CONTROL_WIDTH)
-    ) s_axis_control (
+    ) s_axis_encoder_control (
         .aclk(clock_if.clk),
         .aresetn(reset_if.resetn)
     );
     AxisIf #(
         .DATA_WIDTH(CONTROL_WIDTH)
-    ) m_axis_control (
+    ) m_axis_decoder_status (
         .aclk(clock_if.clk),
         .aresetn(reset_if.resetn)
     );
@@ -57,9 +57,9 @@ module LdpcLoopWrapperTest();
         .aresetn(reset_if.resetn)
     );
     LdpcLoopWrapper dut (
-        .s_axis_ctrl(s_axis_control),
+        .s_axis_ctrl(s_axis_encoder_control),
         .s_axis_din(s_axis_data),
-        .m_axis_status(m_axis_control),
+        .m_axis_status(m_axis_decoder_status),
         .m_axis_dout(m_axis_data)
     );
 
@@ -69,8 +69,8 @@ module LdpcLoopWrapperTest();
             ConfigDb#(longint)::set(null, "uvm_test_top.watchdog", "watchdog_clocks", WATCHDOG_CLOCKS);
             ConfigDb#(virtual ClockIf)::set(null, "uvm_test_top.watchdog", "clock_vif", clock_if);
             ConfigDb#(virtual ResetIf)::set(null, "uvm_test_top.env", "reset_vif", reset_if);
-            ConfigDb#(virtual AxisIf#(CONTROL_WIDTH))::set(null, "uvm_test_top.env", "s_axis_control_vif", s_axis_control);
-            ConfigDb#(virtual AxisIf#(CONTROL_WIDTH))::set(null, "uvm_test_top.env", "m_axis_control_vif", m_axis_control);
+            ConfigDb#(virtual AxisIf#(CONTROL_WIDTH))::set(null, "uvm_test_top.env", "s_axis_encoder_control_vif", s_axis_encoder_control);
+            ConfigDb#(virtual AxisIf#(CONTROL_WIDTH))::set(null, "uvm_test_top.env", "m_axis_decoder_status_vif", m_axis_decoder_status);
             ConfigDb#(virtual AxisIf#(DATA_WIDTH))::set(null, "uvm_test_top.env", "s_axis_data_vif", s_axis_data);
             ConfigDb#(virtual AxisIf#(DATA_WIDTH))::set(null, "uvm_test_top.env", "m_axis_data_vif", m_axis_data);
         end

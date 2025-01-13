@@ -6,19 +6,19 @@ class Test #(
 ) extends BaseTest;
     `uvm_component_param_utils(Test#(CONTROL_WIDTH, DATA_WIDTH))
 
-    localparam string CONTROL_ITEM_NAME = "control_item";
+    localparam string ENCODER_CONTROL_ITEM_NAME = "encoder_control_item";
     localparam string DATA_PACKET_NAME = "data_packet";
 
     typedef Env #(CONTROL_WIDTH, DATA_WIDTH) Env;
     typedef EncoderControlItem#(CONTROL_WIDTH) EncoderControlItem;
     typedef AxisMasterPacket#(DATA_WIDTH) DataPacket;
-    typedef CountSeq#(EncoderControlItem, CONTROL_ITEM_NAME) ControlMasterSeq;
+    typedef CountSeq#(EncoderControlItem, ENCODER_CONTROL_ITEM_NAME) EncoderControlMasterSeq;
     typedef CountSeq#(DataPacket, DATA_PACKET_NAME) DataMasterSeq;
     typedef AxisMasterSeqr#(CONTROL_WIDTH) ControlMasterSeqr;
     typedef AxisMasterSeqr#(DATA_WIDTH) DataMasterSeqr;
 
     local Env env;
-    local ControlCfg control_master_cfg;
+    local ControlCfg encoder_control_cfg;
 
     local const int unsigned PACKETS_COUNT = 512;
     local const Range SIZE_WORDS_RANGE = Range::build_range("size_words_range", 16, 16);
@@ -30,7 +30,7 @@ class Test #(
     virtual function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         env = Env::type_id::create("env", this);
-        control_master_cfg = ControlCfg::type_id::create("control_master_cfg", this);
+        encoder_control_cfg = ControlCfg::type_id::create("encoder_control_cfg", this);
     endfunction
 
     virtual task reset_phase(uvm_phase phase);
@@ -42,30 +42,30 @@ class Test #(
     endtask
 
     virtual task main_phase(uvm_phase phase);
-        ControlMasterSeq control_master_seq = create_control_master_seq(env.get_control_master_seqr());
+        EncoderControlMasterSeq encoder_control_master_seq = create_encoder_control_master_seq(env.get_encoder_control_master_seqr());
         DataMasterSeq data_master_seq = create_data_master_seq(env.get_data_master_seqr());
-        AxisSlaveSeq control_slave_seq = AxisSlaveSeq::type_id::create("control_slave_seq", env.get_control_slave_seqr());
+        AxisSlaveSeq decoder_status_slave_seq = AxisSlaveSeq::type_id::create("decoder_status_slave_seq", env.get_decoder_status_slave_seqr());
         AxisSlaveSeq data_slave_seq = AxisSlaveSeq::type_id::create("data_slave_seq", env.get_data_slave_seqr());
 
         phase.raise_objection(this);
         fork
-            control_slave_seq.start(env.get_control_slave_seqr());
+            decoder_status_slave_seq.start(env.get_decoder_status_slave_seqr());
             data_slave_seq.start(env.get_data_slave_seqr());
         join_none
         fork
-            control_master_seq.start(env.get_control_master_seqr());
+            encoder_control_master_seq.start(env.get_encoder_control_master_seqr());
             data_master_seq.start(env.get_data_master_seqr());
         join
         phase.drop_objection(this);
     endtask
 
-    local function ControlMasterSeq create_control_master_seq(ControlMasterSeqr control_master_seqr);
-        ControlMasterSeq control_master_seq = ControlMasterSeq::type_id::create("control_master_seq", control_master_seqr);
-        ControlMasterSeq::set_count(control_master_seq.get_name(), control_master_seqr, PACKETS_COUNT);
-        control_master_seq.set_sequencer(control_master_seqr);
-        assert (control_master_seq.randomize());
-        set_control_master_cfg(control_master_seqr);
-        return control_master_seq;
+    local function EncoderControlMasterSeq create_encoder_control_master_seq(ControlMasterSeqr encoder_control_master_seqr);
+        EncoderControlMasterSeq encoder_control_master_seq = EncoderControlMasterSeq::type_id::create("encoder_control_master_seq", encoder_control_master_seqr);
+        EncoderControlMasterSeq::set_count(encoder_control_master_seq.get_name(), encoder_control_master_seqr, PACKETS_COUNT);
+        encoder_control_master_seq.set_sequencer(encoder_control_master_seqr);
+        assert (encoder_control_master_seq.randomize());
+        set_encoder_control_cfg(encoder_control_master_seqr);
+        return encoder_control_master_seq;
     endfunction
 
     local function DataMasterSeq create_data_master_seq(DataMasterSeqr data_master_seqr);
@@ -77,8 +77,8 @@ class Test #(
         return data_master_seq;
     endfunction
 
-    local function void set_control_master_cfg(ControlMasterSeqr control_master_seqr);
-        assert (control_master_cfg.randomize() with {
+    local function void set_encoder_control_cfg(ControlMasterSeqr encoder_control_master_seqr);
+        assert (encoder_control_cfg.randomize() with {
             max_schedule == MAX_SCHEDULE;
             mb == MB;
             max_iterations == MAX_ITERATIONS;
@@ -91,7 +91,6 @@ class Test #(
             z_set == Z_SET;
             z_j == Z_J;
         });
-        EncoderControlItem::set_cfg(CONTROL_ITEM_NAME, control_master_seqr, control_master_cfg);
-        // DecoderControlItem::set_cfg(CONTROL_ITEM_NAME, control_master_seqr, control_master_cfg);
+        EncoderControlItem::set_cfg(ENCODER_CONTROL_ITEM_NAME, encoder_control_master_seqr, encoder_control_cfg);
     endfunction
 endclass

@@ -10,7 +10,7 @@ class Env #(
 
     typedef AxisMasterAgent#(CONTROL_WIDTH) ControlMasterAgent;
     typedef AxisMasterAgent#(DATA_WIDTH) DataMasterAgent;
-    typedef AxisSlaveAgent#(CONTROL_WIDTH) ControlSlaveAgent;
+    typedef AxisSlaveAgent#(CONTROL_WIDTH) StatusSlaveAgent;
     typedef AxisSlaveAgent#(DATA_WIDTH) DataSlaveAgent;
 
     typedef AxisMasterSeqr#(CONTROL_WIDTH) ControlMasterSeqr;
@@ -19,15 +19,15 @@ class Env #(
     typedef Scoreboard#(CONTROL_WIDTH, DATA_WIDTH) Scoreboard;
 
     local ResetVif reset_vif;
-    local ControlVif s_axis_control_vif;
-    local ControlVif m_axis_control_vif;
+    local ControlVif s_axis_encoder_control_vif;
+    local ControlVif m_axis_decoder_status_vif;
     local DataVif s_axis_data_vif;
     local DataVif m_axis_data_vif;
 
     local ResetAgent reset_agent;
-    local ControlMasterAgent control_master_agent;
+    local ControlMasterAgent encoder_control_master_agent;
     local DataMasterAgent data_master_agent;
-    local ControlSlaveAgent control_slave_agent;
+    local StatusSlaveAgent decoder_status_slave_agent;
     local DataSlaveAgent data_slave_agent;
     local Scoreboard scoreboard;
 
@@ -37,28 +37,28 @@ class Env #(
 
     virtual function void build_phase(uvm_phase phase);
         reset_agent = ResetAgent::type_id::create("reset_agent", this);
-        control_master_agent = ControlMasterAgent::type_id::create("control_master_agent", this);
+        encoder_control_master_agent = ControlMasterAgent::type_id::create("encoder_control_master_agent", this);
         data_master_agent = DataMasterAgent::type_id::create("data_master_agent", this);
-        control_slave_agent = ControlSlaveAgent::type_id::create("control_slave_agent", this);
+        decoder_status_slave_agent = StatusSlaveAgent::type_id::create("decoder_status_slave_agent", this);
         data_slave_agent = DataSlaveAgent::type_id::create("data_slave_agent", this);
         scoreboard = Scoreboard::type_id::create("scoreboard", this);
 
         ConfigDb#(ResetVif)::get(this, "", "reset_vif", reset_vif);
-        ConfigDb#(ControlVif)::get(this, "", "s_axis_control_vif", s_axis_control_vif);
-        ConfigDb#(ControlVif)::get(this, "", "m_axis_control_vif", m_axis_control_vif);
+        ConfigDb#(ControlVif)::get(this, "", "s_axis_encoder_control_vif", s_axis_encoder_control_vif);
+        ConfigDb#(ControlVif)::get(this, "", "m_axis_decoder_status_vif", m_axis_decoder_status_vif);
         ConfigDb#(DataVif)::get(this, "", "s_axis_data_vif", s_axis_data_vif);
         ConfigDb#(DataVif)::get(this, "", "m_axis_data_vif", m_axis_data_vif);
     endfunction
 
     virtual function void connect_phase(uvm_phase phase);
         reset_agent.set_vif(reset_vif);
-        control_master_agent.set_vif(s_axis_control_vif);
+        encoder_control_master_agent.set_vif(s_axis_encoder_control_vif);
         data_master_agent.set_vif(s_axis_data_vif);
-        control_slave_agent.set_vif(m_axis_control_vif);
+        decoder_status_slave_agent.set_vif(m_axis_decoder_status_vif);
         data_slave_agent.set_vif(m_axis_data_vif);
-        control_master_agent.analysis_port.connect(scoreboard.input_control_fifo.analysis_export);
+        encoder_control_master_agent.analysis_port.connect(scoreboard.input_control_fifo.analysis_export);
         data_master_agent.analysis_port.connect(scoreboard.input_data_fifo.analysis_export);
-        control_slave_agent.analysis_port.connect(scoreboard.output_control_fifo.analysis_export);
+        decoder_status_slave_agent.analysis_port.connect(scoreboard.output_control_fifo.analysis_export);
         data_slave_agent.analysis_port.connect(scoreboard.output_data_fifo.analysis_export);
     endfunction
 
@@ -66,16 +66,16 @@ class Env #(
         return reset_agent.get_seqr();
     endfunction
 
-    function ControlMasterSeqr get_control_master_seqr();
-        return control_master_agent.get_seqr();
+    function ControlMasterSeqr get_encoder_control_master_seqr();
+        return encoder_control_master_agent.get_seqr();
     endfunction
 
     function DataMasterSeqr get_data_master_seqr();
         return data_master_agent.get_seqr();
     endfunction
 
-    function AxisSlaveSeqr get_control_slave_seqr();
-        return control_slave_agent.get_seqr();
+    function AxisSlaveSeqr get_decoder_status_slave_seqr();
+        return decoder_status_slave_agent.get_seqr();
     endfunction
 
     function AxisSlaveSeqr get_data_slave_seqr();
