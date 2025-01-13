@@ -6,6 +6,9 @@ package LDPC_LOOP_WRAPPER_TEST;
     import CONFIG_DB::*;
     import RESET_VIP::*;
 
+    `include "AxisMasterDecoderControlItem.svh"
+    `include "AxisMasterEncoderControlItem.svh"
+
     `include "Scoreboard.svh"
     `include "Env.svh"
 endpackage
