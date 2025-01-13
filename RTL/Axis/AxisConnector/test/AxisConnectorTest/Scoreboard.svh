@@ -6,32 +6,32 @@ class Scoreboard #(
     typedef AxisTransaction#(DATA_WIDTH) Transaction;
     typedef uvm_tlm_analysis_fifo #(Transaction) AnalysisFifo;
 
-    AnalysisFifo input_analysis_fifo;
-    AnalysisFifo output_analysis_fifo;
+    AnalysisFifo input_fifo;
+    AnalysisFifo output_fifo;
 
     function new(string name, uvm_component parent);
         super.new(name, parent);
-        input_analysis_fifo = new("input_analysis_fifo", this);
-        output_analysis_fifo = new("output_analysis_fifo", this);
+        input_fifo = new("input_fifo", this);
+        output_fifo = new("output_fifo", this);
     endfunction
 
     virtual task run_phase(uvm_phase phase);
         forever begin
             Transaction input_transaction;
             Transaction output_transaction;
-            input_analysis_fifo.get(input_transaction);
-            output_analysis_fifo.get(output_transaction);
+            input_fifo.get(input_transaction);
+            output_fifo.get(output_transaction);
             check_matching(input_transaction, output_transaction);
         end
     endtask
 
     virtual function void check_phase(uvm_phase phase);
-        if (input_analysis_fifo.used() != 0)
+        if (input_fifo.used() != 0)
             `uvm_error("SCOREBOARD", $sformatf(
-                "input_analysis_fifo is not empty! remained transactions: %0d", input_analysis_fifo.used()))
-        if (output_analysis_fifo.used() != 0)
+                "input_fifo is not empty! remained transactions: %0d", input_fifo.used()))
+        if (output_fifo.used() != 0)
             `uvm_error("SCOREBOARD", $sformatf(
-                "output_analysis_fifo is not empty! remained transactions: %0d", output_analysis_fifo.used()))
+                "output_fifo is not empty! remained transactions: %0d", output_fifo.used()))
     endfunction
 
     local function void check_matching(Transaction input_transaction, Transaction output_transaction);

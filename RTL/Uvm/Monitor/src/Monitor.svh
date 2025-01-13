@@ -6,13 +6,13 @@ virtual class Monitor #(
 
     typedef uvm_analysis_port#(Transaction) AnalysisPort;
 
-    AnalysisPort analysis_port;
+    AnalysisPort port;
 
     protected Vif vif;
 
     function new(string name, uvm_component parent);
         super.new(name, parent);
-        analysis_port = new("analysis_port", this);
+        port = new("port", this);
     endfunction
 
     function void set_vif(Vif vif);

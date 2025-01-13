@@ -56,10 +56,10 @@ class Env #(
         data_master_agent.set_vif(s_axis_data_vif);
         decoder_status_slave_agent.set_vif(m_axis_decoder_status_vif);
         data_slave_agent.set_vif(m_axis_data_vif);
-        encoder_control_master_agent.analysis_port.connect(scoreboard.input_control_fifo.analysis_export);
-        data_master_agent.analysis_port.connect(scoreboard.input_data_fifo.analysis_export);
-        decoder_status_slave_agent.analysis_port.connect(scoreboard.output_control_fifo.analysis_export);
-        data_slave_agent.analysis_port.connect(scoreboard.output_data_fifo.analysis_export);
+        encoder_control_master_agent.port.connect(scoreboard.input_control_fifo.analysis_export);
+        data_master_agent.port.connect(scoreboard.input_data_fifo.analysis_export);
+        decoder_status_slave_agent.port.connect(scoreboard.output_control_fifo.analysis_export);
+        data_slave_agent.port.connect(scoreboard.output_data_fifo.analysis_export);
     endfunction
 
     function ResetSeqr get_reset_seqr();

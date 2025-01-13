@@ -9,7 +9,7 @@ class AxisSlaveAgent #(
     typedef AxisMonitor#(DATA_WIDTH) Monitor;
     typedef AxisSlaveSeqr Seqr;
 
-    AnalysisPort analysis_port;
+    AnalysisPort port;
 
     local Driver driver;
     local Monitor monitor;
@@ -17,7 +17,7 @@ class AxisSlaveAgent #(
 
     function new(string name, uvm_component parent);
         super.new(name, parent);
-        analysis_port = new("analysis_port", this);
+        port = new("port", this);
     endfunction
     
     virtual function void build_phase(uvm_phase phase);
@@ -28,7 +28,7 @@ class AxisSlaveAgent #(
 
     virtual function void connect_phase(uvm_phase phase);
         driver.seq_item_port.connect(seqr.seq_item_export);
-        monitor.analysis_port.connect(analysis_port);
+        monitor.port.connect(port);
     endfunction
 
     function void set_vif(Vif vif);

@@ -19,6 +19,6 @@ class AxisMonitor #(
         transaction.tdata = vif.tdata;
         transaction.tkeep = vif.tkeep;
         transaction.tlast = vif.tlast;
-        analysis_port.write(transaction);
+        port.write(transaction);
     endfunction
 endclass

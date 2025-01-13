@@ -36,8 +36,8 @@ class Env #(
         reset_agent.set_vif(reset_vif);
         master_agent.set_vif(s_axis_vif);
         slave_agent.set_vif(m_axis_vif);
-        master_agent.analysis_port.connect(scoreboard.input_analysis_fifo.analysis_export);
-        slave_agent.analysis_port.connect(scoreboard.output_analysis_fifo.analysis_export);
+        master_agent.port.connect(scoreboard.input_fifo.analysis_export);
+        slave_agent.port.connect(scoreboard.output_fifo.analysis_export);
     endfunction
 
     function ResetSeqr get_reset_seqr();
