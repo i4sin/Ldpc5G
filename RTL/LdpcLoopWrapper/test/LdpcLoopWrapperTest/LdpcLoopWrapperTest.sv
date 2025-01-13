@@ -4,11 +4,12 @@ package LDPC_LOOP_WRAPPER_TEST;
     
     import AXIS_VIP::*;
     import CONFIG_DB::*;
-    import LDPC_IP_CONTROL_PKG::*;
     import RESET_VIP::*;
 
-    `include "AxisMasterDecoderControlItem.svh"
-    `include "AxisMasterEncoderControlItem.svh"
+    `include "ControlCfg.svh"
+
+    `include "DecoderControlItem.svh"
+    `include "EncoderControlItem.svh"
 
     `include "Scoreboard.svh"
     `include "Env.svh"

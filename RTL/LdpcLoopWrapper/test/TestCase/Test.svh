@@ -1,21 +1,24 @@
+import LDPC_IP_CONTROL_PKG::*;
+
 class Test #(
     parameter CONTROL_WIDTH,
     parameter DATA_WIDTH
 ) extends BaseTest;
     `uvm_component_param_utils(Test#(CONTROL_WIDTH, DATA_WIDTH))
 
-    localparam string CONTROL_PACKET_NAME = "control_packet";
+    localparam string CONTROL_ITEM_NAME = "control_item";
     localparam string DATA_PACKET_NAME = "data_packet";
 
     typedef Env #(CONTROL_WIDTH, DATA_WIDTH) Env;
-    typedef AxisMasterEncoderControlItem#(CONTROL_WIDTH) ControlPacket;
+    typedef EncoderControlItem#(CONTROL_WIDTH) EncoderControlItem;
     typedef AxisMasterPacket#(DATA_WIDTH) DataPacket;
-    typedef CountSeq#(ControlPacket, CONTROL_PACKET_NAME) ControlMasterSeq;
+    typedef CountSeq#(EncoderControlItem, CONTROL_ITEM_NAME) ControlMasterSeq;
     typedef CountSeq#(DataPacket, DATA_PACKET_NAME) DataMasterSeq;
     typedef AxisMasterSeqr#(CONTROL_WIDTH) ControlMasterSeqr;
     typedef AxisMasterSeqr#(DATA_WIDTH) DataMasterSeqr;
 
     local Env env;
+    local ControlCfg control_master_cfg;
 
     local const int unsigned PACKETS_COUNT = 512;
     local const Range SIZE_WORDS_RANGE = Range::build_range("size_words_range", 16, 16);
@@ -27,6 +30,7 @@ class Test #(
     virtual function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         env = Env::type_id::create("env", this);
+        control_master_cfg = ControlCfg::type_id::create("control_master_cfg", this);
     endfunction
 
     virtual task reset_phase(uvm_phase phase);
@@ -60,6 +64,7 @@ class Test #(
         ControlMasterSeq::set_count(control_master_seq.get_name(), control_master_seqr, PACKETS_COUNT);
         control_master_seq.set_sequencer(control_master_seqr);
         assert (control_master_seq.randomize());
+        set_control_master_cfg(control_master_seqr);
         return control_master_seq;
     endfunction
 
@@ -70,5 +75,23 @@ class Test #(
         data_master_seq.set_sequencer(data_master_seqr);
         assert (data_master_seq.randomize());
         return data_master_seq;
+    endfunction
+
+    local function void set_control_master_cfg(ControlMasterSeqr control_master_seqr);
+        assert (control_master_cfg.randomize() with {
+            max_schedule == MAX_SCHEDULE;
+            mb == MB;
+            max_iterations == MAX_ITERATIONS;
+            term_on_no_change == TERM_ON_NO_CHANGE;
+            term_on_pass == TERM_ON_PASS;
+            include_parity_op == INCLUDE_PARITY_OP;
+            hard_op == HARD_OP;
+            ms_offset == MS_OFFSET;
+            bg == BG;
+            z_set == Z_SET;
+            z_j == Z_J;
+        });
+        EncoderControlItem::set_cfg(CONTROL_ITEM_NAME, control_master_seqr, control_master_cfg);
+        // DecoderControlItem::set_cfg(CONTROL_ITEM_NAME, control_master_seqr, control_master_cfg);
     endfunction
 endclass

@@ -7,8 +7,9 @@ filesets:
   tb_files:
     files:
       - LdpcLoopWrapperTest.sv
-      - AxisMasterDecoderControlItem.svh: {is_include_file: true}
-      - AxisMasterEncoderControlItem.svh: {is_include_file: true}
+      - ControlCfg.svh: {is_include_file: true}
+      - DecoderControlItem.svh: {is_include_file: true}
+      - EncoderControlItem.svh: {is_include_file: true}
       - Env.svh: {is_include_file: true}
       - Scoreboard.svh: {is_include_file: true}
     file_type: systemVerilogSource

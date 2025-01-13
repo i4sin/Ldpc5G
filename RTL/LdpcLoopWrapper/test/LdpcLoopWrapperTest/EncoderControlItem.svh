@@ -1,20 +1,37 @@
-class AxisMasterEncoderControlItem #(
+class EncoderControlItem #(
     parameter CONTROL_WIDTH
 ) extends AxisMasterItem#(CONTROL_WIDTH);
-    `uvm_object_param_utils(AxisMasterEncoderControlItem#(CONTROL_WIDTH))
+    `uvm_object_param_utils(EncoderControlItem#(CONTROL_WIDTH))
 
-    rand logic [2:0] max_schedule = MAX_SCHEDULE;
-    rand logic [5:0] mb = MB;
+    local ControlCfg cfg;
+
+    rand logic [2:0] max_schedule;
+    rand logic [5:0] mb;
     rand logic [7:0] id;
     rand logic [14:0] reserved;
-    rand logic [2:0] bg = BG;
-    rand logic [2:0] z_set = Z_SET;
-    rand logic [2:0] z_j = Z_J;
+    rand logic [2:0] bg;
+    rand logic [2:0] z_set;
+    rand logic [2:0] z_j;
+
+    constraint c_max_schedule {
+        max_schedule == cfg.max_schedule;
+    }
+    constraint c_mb {
+        mb == cfg.mb;
+    }
+    constraint c_bg {
+        bg == cfg.bg;
+    }
+    constraint c_z_set {
+        z_set == cfg.z_set;
+    }
+    constraint c_z_j {
+        z_j == cfg.z_j;
+    }
 
     constraint c_tdata {
         tdata == {max_schedule, mb, id, reserved, bg, z_set, z_j};
     }
-    
     constraint c_tlast {
         tlast == 1;
     }
@@ -22,6 +39,14 @@ class AxisMasterEncoderControlItem #(
     function new(string name = "");
         super.new(name);
         assert (name != "");
+    endfunction
+
+    virtual function void configure();
+        ConfigDb#(ControlCfg)::get(m_sequencer, get_name(), "cfg", cfg);
+    endfunction
+
+    static function void set_cfg(string name, uvm_sequencer_base seqr, ControlCfg cfg);
+        ConfigDb#(ControlCfg)::set(null, {seqr.get_full_name(), ".", name}, "cfg", cfg);
     endfunction
 
     virtual function void do_print(uvm_printer printer);
