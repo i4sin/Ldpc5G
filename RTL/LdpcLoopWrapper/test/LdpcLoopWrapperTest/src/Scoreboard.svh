@@ -24,6 +24,7 @@ class Scoreboard #(
     local ControlStatusMap decoder_control_map;
     local ControlStatusMap encoder_status_map;
     local ControlStatusMap decoder_status_map;
+
     local ControlStatusAnalysisFifo encoder_control_fifo;
     local ControlStatusAnalysisFifo decoder_control_fifo;
     local ControlStatusAnalysisFifo encoder_status_fifo;
@@ -75,6 +76,15 @@ class Scoreboard #(
         end
     endtask
 
+    virtual function void check_phase(uvm_phase phase);
+        // check_fifo_empty(encoder_control_fifo);
+        // check_fifo_empty(decoder_control_fifo);
+        // check_fifo_empty(encoder_status_fifo);
+        // check_fifo_empty(decoder_status_fifo);
+        // check_fifo_empty(input_data_fifo);
+        // check_fifo_empty(output_data_fifo);
+    endfunction
+
     local task check_control_status();
         ControlStatusTransaction input_control;
         ControlStatusTransaction output_status;
@@ -111,5 +121,10 @@ class Scoreboard #(
         if (!in.compare(out)) begin
             `uvm_error("SCOREBOARD", $sformatf("transactions don't match! \nin: %s\nout: %s\n", in.sprint(), out.sprint()))
         end
+    endfunction
+
+    local function void check_fifo_empty(uvm_tlm_analysis_fifo fifo);
+        if (fifo.used() != 0)
+            `uvm_error("SCOREBOARD", $sformatf("%s is not empty! remained transactions: %0d", fifo.get_name(), fifo.used()))
     endfunction
 endclass
