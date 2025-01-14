@@ -6,6 +6,8 @@ description: Simple LdpcLoopWrapper
 filesets:
   rtl_files:
     files:
+      - src/DummyDecoder.sv
+      - src/DummyEncoder.sv
       - src/LdpcIpControlPkg.sv
       - src/LdpcLoopWrapper.sv
     file_type: systemVerilogSource
