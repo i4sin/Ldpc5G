@@ -8,7 +8,7 @@ class ControlStatusMap #(
     endfunction
 
     virtual function void write(FROM_T from);
-        TO_T to;
+        TO_T to = TO_T::type_id::create("to", this);
         to.max_schedule = from.tdata[39:38];
         to.mb = from.tdata[37:32];
         to.id = from.tdata[31:24];
