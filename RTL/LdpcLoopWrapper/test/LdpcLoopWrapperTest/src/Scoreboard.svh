@@ -8,6 +8,7 @@ class Scoreboard #(
     typedef ControlStatusTransaction#(CONTROL_STATUS_WIDTH) ControlStatusTransaction;
     typedef AxisTransaction#(DATA_WIDTH) DataTransaction;
     typedef uvm_analysis_export #(AxisControlStatusTransaction) AxisControlStatusExport;
+    typedef uvm_analysis_export #(DataTransaction) DataExport;
     typedef ControlStatusMap #(CONTROL_STATUS_WIDTH) ControlStatusMap;
     typedef uvm_tlm_analysis_fifo #(ControlStatusTransaction) ControlStatusAnalysisFifo;
     typedef uvm_tlm_analysis_fifo #(DataTransaction) DataAnalysisFifo;
@@ -16,8 +17,8 @@ class Scoreboard #(
     AxisControlStatusExport decoder_control_export;
     AxisControlStatusExport encoder_status_export;
     AxisControlStatusExport decoder_status_export;
-    DataAnalysisFifo input_data_fifo;
-    DataAnalysisFifo output_data_fifo;
+    DataExport input_data_export;
+    DataExport output_data_export;
 
     local ControlStatusMap encoder_control_map;
     local ControlStatusMap decoder_control_map;
@@ -27,6 +28,8 @@ class Scoreboard #(
     local ControlStatusAnalysisFifo decoder_control_fifo;
     local ControlStatusAnalysisFifo encoder_status_fifo;
     local ControlStatusAnalysisFifo decoder_status_fifo;
+    local DataAnalysisFifo input_data_fifo;
+    local DataAnalysisFifo output_data_fifo;
 
     function new(string name, uvm_component parent);
         super.new(name, parent);
@@ -34,6 +37,8 @@ class Scoreboard #(
         decoder_control_export = new("decoder_control_export", this);
         encoder_status_export = new("encoder_status_export", this);
         decoder_status_export = new("decoder_status_export", this);
+        input_data_export = new("input_data_export", this);
+        output_data_export = new("output_data_export", this);
         encoder_control_map = new("encoder_control_map", this);
         decoder_control_map = new("decoder_control_map", this);
         encoder_status_map = new("encoder_status_map", this);
@@ -55,6 +60,8 @@ class Scoreboard #(
         decoder_control_map.port.connect(decoder_control_fifo.analysis_export);
         encoder_status_map.port.connect(encoder_status_fifo.analysis_export);
         decoder_status_map.port.connect(decoder_status_fifo.analysis_export);
+        input_data_export.connect(input_data_fifo.analysis_export);
+        output_data_export.connect(output_data_fifo.analysis_export);
     endfunction
 
     virtual task run_phase(uvm_phase phase);
