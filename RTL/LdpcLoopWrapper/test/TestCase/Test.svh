@@ -9,6 +9,7 @@ class Test #(
     localparam string ENCODER_CONTROL_ITEM_NAME = "encoder_control_item";
     localparam string DECODER_CONTROL_ITEM_NAME = "decoder_control_item";
     localparam string DATA_PACKET_NAME = "data_packet";
+    localparam string SLAVE_ITEM_NAME = "slave_item";
 
     typedef Env #(CONTROL_STATUS_WIDTH, DATA_WIDTH) Env;
     typedef EncoderControlItem#(CONTROL_STATUS_WIDTH) ControlItem;
@@ -16,6 +17,7 @@ class Test #(
     typedef CountSeq#(ControlItem, ENCODER_CONTROL_ITEM_NAME) EncoderControlMasterSeq;
     typedef CountSeq#(ControlItem, DECODER_CONTROL_ITEM_NAME) DecoderControlMasterSeq;
     typedef CountSeq#(DataPacket, DATA_PACKET_NAME) DataMasterSeq;
+    typedef InfiniteSeq#(AxisSlaveItem, SLAVE_ITEM_NAME) SlaveSeq;
     typedef AxisMasterSeqr#(CONTROL_STATUS_WIDTH) ControlMasterSeqr;
     typedef AxisMasterSeqr#(DATA_WIDTH) DataMasterSeqr;
 
@@ -49,9 +51,9 @@ class Test #(
         EncoderControlMasterSeq encoder_control_master_seq = create_encoder_control_master_seq(env.get_encoder_control_master_seqr());
         DecoderControlMasterSeq decoder_control_master_seq = create_decoder_control_master_seq(env.get_decoder_control_master_seqr());
         DataMasterSeq data_master_seq = create_data_master_seq(env.get_data_master_seqr());
-        AxisSlaveSeq encoder_status_slave_seq = AxisSlaveSeq::type_id::create("encoder_status_slave_seq", env.get_decoder_status_slave_seqr());
-        AxisSlaveSeq decoder_status_slave_seq = AxisSlaveSeq::type_id::create("decoder_status_slave_seq", env.get_decoder_status_slave_seqr());
-        AxisSlaveSeq data_slave_seq = AxisSlaveSeq::type_id::create("data_slave_seq", env.get_data_slave_seqr());
+        SlaveSeq encoder_status_slave_seq = SlaveSeq::type_id::create("encoder_status_slave_seq", env.get_decoder_status_slave_seqr());
+        SlaveSeq decoder_status_slave_seq = SlaveSeq::type_id::create("decoder_status_slave_seq", env.get_decoder_status_slave_seqr());
+        SlaveSeq data_slave_seq = SlaveSeq::type_id::create("data_slave_seq", env.get_data_slave_seqr());
 
         phase.raise_objection(this);
         fork

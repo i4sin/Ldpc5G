@@ -17,7 +17,6 @@ filesets:
       - src/AxisSlaveAgent.svh: {is_include_file: true}
       - src/AxisSlaveDriver.svh: {is_include_file: true}
       - src/AxisSlaveItem.svh: {is_include_file: true}
-      - src/AxisSlaveSeq.svh: {is_include_file: true}
       - src/AxisSlaveSeqr.svh: {is_include_file: true}
       - src/AxisTransaction.svh: {is_include_file: true}
     file_type: systemVerilogSource

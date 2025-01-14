@@ -4,10 +4,12 @@ class Test #(
     `uvm_component_param_utils(Test#(DATA_WIDTH))
 
     localparam string PACKET_NAME = "packet";
+    localparam string SLAVE_ITEM_NAME = "slave_item";
 
     typedef Env #(DATA_WIDTH) Env;
     typedef AxisMasterPacket#(DATA_WIDTH) Packet;
     typedef CountSeq#(Packet, PACKET_NAME) MasterSeq;
+    typedef InfiniteSeq#(AxisSlaveItem, SLAVE_ITEM_NAME) SlaveSeq;
     typedef AxisMasterSeqr#(DATA_WIDTH) MasterSeqr;
 
     local Env env;
@@ -34,7 +36,7 @@ class Test #(
 
     virtual task main_phase(uvm_phase phase);
         MasterSeq master_seq = create_master_seq(env.get_master_seqr());
-        AxisSlaveSeq slave_seq = AxisSlaveSeq::type_id::create("slave_seq", env.get_slave_seqr());
+        SlaveSeq slave_seq = SlaveSeq::type_id::create("slave_seq", env.get_slave_seqr());
 
         phase.raise_objection(this);
         fork
