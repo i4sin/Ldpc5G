@@ -66,55 +66,50 @@ class Scoreboard #(
     endfunction
 
     virtual task run_phase(uvm_phase phase);
-        forever begin
-            fork
-                check_control_status();
-                check_encoder();
-                check_decoder();
-                check_data();
-            join
-        end
+        fork
+            check_encoder();
+            check_decoder();
+            check_data();
+        join
     endtask
 
     virtual function void check_phase(uvm_phase phase);
-        // check_fifo_empty(encoder_control_fifo);
-        // check_fifo_empty(decoder_control_fifo);
-        // check_fifo_empty(encoder_status_fifo);
-        // check_fifo_empty(decoder_status_fifo);
-        // check_fifo_empty(input_data_fifo);
-        // check_fifo_empty(output_data_fifo);
+        check_fifo_empty(encoder_control_fifo);
+        check_fifo_empty(decoder_control_fifo);
+        check_fifo_empty(encoder_status_fifo);
+        check_fifo_empty(decoder_status_fifo);
+        check_fifo_empty(input_data_fifo);
+        check_fifo_empty(output_data_fifo);
     endfunction
 
-    local task check_control_status();
-        ControlStatusTransaction input_control;
-        ControlStatusTransaction output_status;
-        encoder_control_fifo.get(input_control);
-        decoder_status_fifo.get(output_status);
-        check_matching(input_control, output_status);
-    endtask
-
     local task check_encoder();
-        ControlStatusTransaction input_control;
-        ControlStatusTransaction output_status;
-        encoder_control_fifo.get(input_control);
-        encoder_status_fifo.get(output_status);
-        check_matching(input_control, output_status);
+        forever begin
+            ControlStatusTransaction input_control;
+            ControlStatusTransaction output_status;
+            encoder_control_fifo.get(input_control);
+            encoder_status_fifo.get(output_status);
+            check_matching(input_control, output_status);
+        end
     endtask
 
     local task check_decoder();
-        ControlStatusTransaction input_control;
-        ControlStatusTransaction output_status;
-        decoder_control_fifo.get(input_control);
-        decoder_status_fifo.get(output_status);
-        check_matching(input_control, output_status);
+        forever begin
+            ControlStatusTransaction input_control;
+            ControlStatusTransaction output_status;
+            decoder_control_fifo.get(input_control);
+            decoder_status_fifo.get(output_status);
+            check_matching(input_control, output_status);
+        end
     endtask
 
     local task check_data();
-        DataTransaction input_data;
-        DataTransaction output_data;
-        input_data_fifo.get(input_data);
-        output_data_fifo.get(output_data);
-        check_matching(input_data, output_data);
+        forever begin
+            DataTransaction input_data;
+            DataTransaction output_data;
+            input_data_fifo.get(input_data);
+            output_data_fifo.get(output_data);
+            check_matching(input_data, output_data);
+        end
     endtask
 
     local function void check_matching(uvm_transaction in, uvm_transaction out);
