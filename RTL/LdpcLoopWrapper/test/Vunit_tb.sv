@@ -57,9 +57,9 @@ module LdpcLoopWrapperTest();
         .aresetn(reset_if.resetn)
     );
     LdpcLoopWrapper dut (
-        .s_axis_ctrl(s_axis_encoder_control),
+        .s_axis_encoder_control(s_axis_encoder_control),
         .s_axis_din(s_axis_data),
-        .m_axis_status(m_axis_decoder_status),
+        .m_axis_decoder_status(m_axis_decoder_status),
         .m_axis_dout(m_axis_data)
     );
 

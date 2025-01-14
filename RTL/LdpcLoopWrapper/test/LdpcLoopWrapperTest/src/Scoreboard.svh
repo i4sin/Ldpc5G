@@ -12,33 +12,33 @@ class Scoreboard #(
     typedef uvm_tlm_analysis_fifo #(ControlStatusTransaction) ControlStatusAnalysisFifo;
     typedef uvm_tlm_analysis_fifo #(DataTransaction) DataAnalysisFifo;
 
-    AxisControlStatusExport input_control_export;
-    AxisControlStatusExport output_status_export;
+    AxisControlStatusExport encoder_control_export;
+    AxisControlStatusExport decoder_status_export;
     DataAnalysisFifo input_data_fifo;
     DataAnalysisFifo output_data_fifo;
 
-    local ControlStatusMap input_control_map;
-    local ControlStatusMap output_status_map;
-    local ControlStatusAnalysisFifo input_control_fifo;
-    local ControlStatusAnalysisFifo output_status_fifo;
+    local ControlStatusMap encoder_control_map;
+    local ControlStatusMap decoder_status_map;
+    local ControlStatusAnalysisFifo encoder_control_fifo;
+    local ControlStatusAnalysisFifo decoder_status_fifo;
 
     function new(string name, uvm_component parent);
         super.new(name, parent);
-        input_control_export = new("input_control_export", this);
-        output_status_export = new("output_status_export", this);
-        input_control_map = new("input_control_map", this);
-        output_status_map = new("output_status_map", this);
-        input_control_fifo = new("input_control_fifo", this);
-        output_status_fifo = new("output_status_fifo", this);
+        encoder_control_export = new("encoder_control_export", this);
+        decoder_status_export = new("decoder_status_export", this);
+        encoder_control_map = new("encoder_control_map", this);
+        decoder_status_map = new("decoder_status_map", this);
+        encoder_control_fifo = new("encoder_control_fifo", this);
+        decoder_status_fifo = new("decoder_status_fifo", this);
         input_data_fifo = new("input_data_fifo", this);
         output_data_fifo = new("output_data_fifo", this);
     endfunction
 
     virtual function void connect_phase(uvm_phase phase);
-        input_control_export.connect(input_control_map.imp);
-        output_status_export.connect(output_status_map.imp);
-        input_control_map.port.connect(input_control_fifo.analysis_export);
-        output_status_map.port.connect(output_status_fifo.analysis_export);
+        encoder_control_export.connect(encoder_control_map.imp);
+        decoder_status_export.connect(decoder_status_map.imp);
+        encoder_control_map.port.connect(encoder_control_fifo.analysis_export);
+        decoder_status_map.port.connect(decoder_status_fifo.analysis_export);
     endfunction
 
     virtual task run_phase(uvm_phase phase);
@@ -51,15 +51,15 @@ class Scoreboard #(
     endtask
 
     virtual function void check_phase(uvm_phase phase);
-        // if (input_control_fifo.used() != 0)
+        // if (encoder_control_fifo.used() != 0)
         //     `uvm_error("SCOREBOARD", $sformatf(
-        //         "input_control_fifo is not empty! remained transactions: %0d", input_control_fifo.used()))
+        //         "encoder_control_fifo is not empty! remained transactions: %0d", encoder_control_fifo.used()))
         // if (input_data_fifo.used() != 0)
         //     `uvm_error("SCOREBOARD", $sformatf(
         //         "input_data_fifo is not empty! remained transactions: %0d", input_data_fifo.used()))
-        // if (output_status_fifo.used() != 0)
+        // if (decoder_status_fifo.used() != 0)
         //     `uvm_error("SCOREBOARD", $sformatf(
-        //         "output_status_fifo is not empty! remained transactions: %0d", output_status_fifo.used()))
+        //         "decoder_status_fifo is not empty! remained transactions: %0d", decoder_status_fifo.used()))
         // if (output_data_fifo.used() != 0)
         //     `uvm_error("SCOREBOARD", $sformatf(
         //         "output_data_fifo is not empty! remained transactions: %0d", output_data_fifo.used()))
@@ -68,8 +68,8 @@ class Scoreboard #(
     local task check_control_status();
         ControlStatusTransaction input_control;
         ControlStatusTransaction output_status;
-        input_control_fifo.get(input_control);
-        output_status_fifo.get(output_status);
+        encoder_control_fifo.get(input_control);
+        decoder_status_fifo.get(output_status);
         check_matching(input_control, output_status);
     endtask
 
