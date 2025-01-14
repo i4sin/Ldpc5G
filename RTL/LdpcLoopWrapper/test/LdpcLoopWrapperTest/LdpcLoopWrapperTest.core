@@ -8,6 +8,8 @@ filesets:
     files:
       - src/LdpcLoopWrapperTest.sv
       - src/Components/ControlCfg.svh: {is_include_file: true}
+      - src/Components/ControlStatusMap.svh: {is_include_file: true}
+      - src/Objects/ControlStatusTransaction.svh: {is_include_file: true}
       - src/Objects/DecoderControlItem.svh: {is_include_file: true}
       - src/Objects/EncoderControlItem.svh: {is_include_file: true}
       - src/Env.svh: {is_include_file: true}
@@ -18,6 +20,7 @@ filesets:
       - Yasin:TestInterfaces:AxisIf
       - Yasin:TestInterfaces:ClockIf
       - Yasin:TestInterfaces:ResetIf
+      - Yasin:Uvm:AnalysisMap
       - Yasin:Uvm:ConfigDb
       - Yasin:Uvm:ResetVip
 
